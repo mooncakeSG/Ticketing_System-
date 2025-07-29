@@ -32,7 +32,7 @@ def main():
     # Start frontend
     print("🎨 Starting Next.js frontend...")
     frontend_process = run_command(
-        ["yarn", "dev"],
+        ["npm", "run", "dev"],
         cwd=project_root / "apps" / "client"
     )
     

@@ -79,7 +79,7 @@ cd Ticketing_System-
 2. **Install all dependencies**
 ```bash
 # Install frontend dependencies
-yarn install
+npm install
 
 # Install backend dependencies
 cd backend
@@ -90,11 +90,11 @@ cd ..
 3. **Start both backend and frontend**
 ```bash
 # Start both servers together
-yarn dev:full
+npm run dev:full
 
 # Or start them separately:
-# Backend: yarn backend
-# Frontend: yarn frontend
+# Backend: npm run backend
+# Frontend: npm run frontend
 ```
 
 4. **Access the application**
@@ -112,12 +112,12 @@ cd Ticketing_System-
 2. **Install frontend dependencies**
 ```bash
 cd apps/client
-yarn install
+npm install
 ```
 
 3. **Start the frontend**
 ```bash
-yarn dev
+npm run dev
 ```
 
 4. **Open your browser**
