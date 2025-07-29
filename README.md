@@ -1,18 +1,3 @@
-<h1 align="center">Welcome to the Peppermint inspired Ticket Management System 🍵</h1>
-<p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.2-blue.svg?cacheSeconds=2592000" />
-  <a target="_blank">
-    <img alt="Github Stars: " src="https://img.shields.io/github/stars/jwandrews99/winter?style=social" />
-  </a>
-  <img src="https://img.shields.io/docker/pulls/pepperlabs/peppermint" />
-</p>
-<p align="center">
-    <img src="./static/logo.svg" alt="Logo" height="80px" >
-</p>
-    <img src="https://img.favpng.com/11/0/21/help-desk-issue-tracking-system-service-ticket-png-favpng-46SSdUxp0NmHPXdKQUyK5h091.jpg" width="201px">
-  </a>
-</p>
-
 # 🧾 Modern Ticketing System
 
 A modern, developer-friendly ticketing system built with Next.js App Router, featuring a clean black & white design inspired by Cal.com and Radix UI.
