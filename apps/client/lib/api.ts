@@ -31,102 +31,197 @@ api.interceptors.response.use(
   }
 );
 
+// Updated interfaces to match the database schema
 export interface Ticket {
   id: string;
-  subject: string;
-  description: string;
-  status: 'open' | 'closed';
+  title: string;
+  detail?: string;
+  status: 'needs_support' | 'in_progress' | 'waiting_for_customer' | 'resolved' | 'closed';
   priority: 'low' | 'medium' | 'high';
-  created_at: string;
-  updated_at: string;
-  assigned_to?: string;
-  created_by: string;
+  type: 'support' | 'bug' | 'feature' | 'other';
+  createdAt: string;
+  updatedAt: string;
+  assignedTo?: User;
+  createdBy?: any;
+  client?: Client;
+  isComplete: boolean;
+  hidden: boolean;
+  locked: boolean;
+  Number: number;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+  image?: string;
+  createdAt: string;
+  updatedAt: string;
+  role?: Role;
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  description?: string;
+  permissions: string[];
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  email: string;
+  contactName: string;
+  number?: string;
+  notes?: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Comment {
+  id: string;
+  text: string;
+  public: boolean;
+  reply: boolean;
+  replyEmail?: string;
+  edited: boolean;
+  editedAt?: string;
+  previous?: string;
+  createdAt: string;
+  user?: User;
+  ticketId: string;
+}
+
+export interface TimeTracking {
+  id: string;
+  title: string;
+  comment?: string;
+  time: number;
+  createdAt: string;
+  updatedAt: string;
+  user?: User;
+  ticketId?: string;
 }
 
 export interface CreateTicketData {
-  subject: string;
-  description: string;
+  title: string;
+  detail?: string;
   priority: 'low' | 'medium' | 'high';
+  type?: 'support' | 'bug' | 'feature' | 'other';
+  email?: string;
+  engineer?: User;
+  company?: Client;
+  createdBy?: any;
 }
 
-// Mock data for demonstration
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: User;
+}
+
+// Mock data for fallback
 const mockTickets: Ticket[] = [
   {
     id: '1',
-    subject: 'Website not loading properly',
-    description: 'The homepage is taking too long to load and some images are broken. Users are reporting 404 errors.',
-    status: 'open',
+    title: 'Website not loading properly',
+    detail: 'The homepage is taking too long to load and some images are broken. Users are reporting 404 errors.',
+    status: 'needs_support',
     priority: 'high',
-    created_at: '2024-01-15T10:30:00Z',
-    updated_at: '2024-01-15T14:20:00Z',
-    assigned_to: 'John Doe',
-    created_by: 'Sarah Wilson',
+    type: 'bug',
+    createdAt: '2024-01-15T10:30:00Z',
+    updatedAt: '2024-01-15T14:20:00Z',
+    isComplete: false,
+    hidden: false,
+    locked: false,
+    Number: 1,
   },
   {
     id: '2',
-    subject: 'User registration form issue',
-    description: 'New users cannot complete the registration process. The form submits but shows an error message.',
-    status: 'open',
+    title: 'User registration form issue',
+    detail: 'New users cannot complete the registration process. The form submits but shows an error message.',
+    status: 'in_progress',
     priority: 'medium',
-    created_at: '2024-01-14T09:15:00Z',
-    updated_at: '2024-01-14T16:45:00Z',
-    assigned_to: 'Mike Johnson',
-    created_by: 'Customer Support',
+    type: 'support',
+    createdAt: '2024-01-14T09:15:00Z',
+    updatedAt: '2024-01-14T16:45:00Z',
+    isComplete: false,
+    hidden: false,
+    locked: false,
+    Number: 2,
   },
   {
     id: '3',
-    subject: 'Mobile app crashes on startup',
-    description: 'The iOS app crashes immediately when opened on iPhone 12 and newer devices.',
-    status: 'closed',
+    title: 'Mobile app crashes on startup',
+    detail: 'The iOS app crashes immediately when opened on iPhone 12 and newer devices.',
+    status: 'resolved',
     priority: 'high',
-    created_at: '2024-01-13T11:00:00Z',
-    updated_at: '2024-01-14T08:30:00Z',
-    assigned_to: 'Lisa Chen',
-    created_by: 'QA Team',
-  },
-  {
-    id: '4',
-    subject: 'Email notifications not working',
-    description: 'Users are not receiving email notifications for important updates and password resets.',
-    status: 'open',
-    priority: 'medium',
-    created_at: '2024-01-12T15:20:00Z',
-    updated_at: '2024-01-13T10:15:00Z',
-    created_by: 'System Admin',
-  },
-  {
-    id: '5',
-    subject: 'Database performance issues',
-    description: 'Slow query performance affecting user experience. Some reports are timing out.',
-    status: 'open',
-    priority: 'high',
-    created_at: '2024-01-11T08:45:00Z',
-    updated_at: '2024-01-12T14:30:00Z',
-    assigned_to: 'David Smith',
-    created_by: 'System Monitor',
-  },
-  {
-    id: '6',
-    subject: 'UI design feedback',
-    description: 'Users have provided feedback about the new dashboard design. Some elements need adjustment.',
-    status: 'closed',
-    priority: 'low',
-    created_at: '2024-01-10T13:30:00Z',
-    updated_at: '2024-01-11T09:45:00Z',
-    assigned_to: 'Alex Rodriguez',
-    created_by: 'Product Manager',
+    type: 'bug',
+    createdAt: '2024-01-13T11:00:00Z',
+    updatedAt: '2024-01-14T08:30:00Z',
+    isComplete: true,
+    hidden: false,
+    locked: false,
+    Number: 3,
   },
 ];
+
+// Authentication API
+export const authApi = {
+  login: async (data: LoginData): Promise<AuthResponse> => {
+    try {
+      const response = await api.post('/auth/login', data);
+      const { token, user } = response.data;
+      localStorage.setItem('auth_token', token);
+      return { token, user };
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
+  },
+
+  logout: () => {
+    localStorage.removeItem('auth_token');
+    window.location.href = '/auth/login';
+  },
+
+  getCurrentUser: async (): Promise<User> => {
+    try {
+      const response = await api.get('/auth/me');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get current user:', error);
+      throw error;
+    }
+  },
+
+  register: async (data: { email: string; password: string; name: string; admin: boolean }): Promise<AuthResponse> => {
+    try {
+      const response = await api.post('/auth/user/register', data);
+      const { token, user } = response.data;
+      localStorage.setItem('auth_token', token);
+      return { token, user };
+    } catch (error) {
+      console.error('Registration failed:', error);
+      throw error;
+    }
+  },
+};
 
 // Ticket API functions
 export const ticketApi = {
   // Get all tickets
   getTickets: async (): Promise<Ticket[]> => {
     try {
-      const response = await api.get('/tickets');
+      const response = await api.get('/ticket');
       return response.data;
     } catch (error) {
-      // Fallback to mock data if API is not available
       console.log('API not available, using mock data');
       return mockTickets;
     }
@@ -135,10 +230,9 @@ export const ticketApi = {
   // Get single ticket
   getTicket: async (id: string): Promise<Ticket> => {
     try {
-      const response = await api.get(`/tickets/${id}`);
+      const response = await api.get(`/ticket/${id}`);
       return response.data;
     } catch (error) {
-      // Fallback to mock data
       const ticket = mockTickets.find(t => t.id === id);
       if (!ticket) throw new Error('Ticket not found');
       return ticket;
@@ -148,17 +242,24 @@ export const ticketApi = {
   // Create new ticket
   createTicket: async (data: CreateTicketData): Promise<Ticket> => {
     try {
-      const response = await api.post('/tickets', data);
+      const response = await api.post('/ticket/create', data);
       return response.data;
     } catch (error) {
-      // Create mock ticket
+      console.error('Failed to create ticket:', error);
+      // Create mock ticket for fallback
       const newTicket: Ticket = {
         id: (mockTickets.length + 1).toString(),
-        ...data,
-        status: 'open',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        created_by: 'Current User',
+        title: data.title,
+        detail: data.detail,
+        status: 'needs_support',
+        priority: data.priority,
+        type: data.type || 'support',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        isComplete: false,
+        hidden: false,
+        locked: false,
+        Number: mockTickets.length + 1,
       };
       mockTickets.push(newTicket);
       return newTicket;
@@ -168,17 +269,16 @@ export const ticketApi = {
   // Update ticket
   updateTicket: async (id: string, data: Partial<CreateTicketData>): Promise<Ticket> => {
     try {
-      const response = await api.put(`/tickets/${id}`, data);
+      const response = await api.put(`/ticket/${id}`, data);
       return response.data;
     } catch (error) {
-      // Update mock ticket
       const ticketIndex = mockTickets.findIndex(t => t.id === id);
       if (ticketIndex === -1) throw new Error('Ticket not found');
       
       mockTickets[ticketIndex] = {
         ...mockTickets[ticketIndex],
         ...data,
-        updated_at: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       return mockTickets[ticketIndex];
     }
@@ -187,17 +287,17 @@ export const ticketApi = {
   // Close ticket
   closeTicket: async (id: string): Promise<Ticket> => {
     try {
-      const response = await api.patch(`/tickets/${id}/close`);
+      const response = await api.patch(`/ticket/${id}/close`);
       return response.data;
     } catch (error) {
-      // Close mock ticket
       const ticketIndex = mockTickets.findIndex(t => t.id === id);
       if (ticketIndex === -1) throw new Error('Ticket not found');
       
       mockTickets[ticketIndex] = {
         ...mockTickets[ticketIndex],
         status: 'closed',
-        updated_at: new Date().toISOString(),
+        isComplete: true,
+        updatedAt: new Date().toISOString(),
       };
       return mockTickets[ticketIndex];
     }
@@ -206,19 +306,115 @@ export const ticketApi = {
   // Reopen ticket
   reopenTicket: async (id: string): Promise<Ticket> => {
     try {
-      const response = await api.patch(`/tickets/${id}/reopen`);
+      const response = await api.patch(`/ticket/${id}/reopen`);
       return response.data;
     } catch (error) {
-      // Reopen mock ticket
       const ticketIndex = mockTickets.findIndex(t => t.id === id);
       if (ticketIndex === -1) throw new Error('Ticket not found');
       
       mockTickets[ticketIndex] = {
         ...mockTickets[ticketIndex],
-        status: 'open',
-        updated_at: new Date().toISOString(),
+        status: 'needs_support',
+        isComplete: false,
+        updatedAt: new Date().toISOString(),
       };
       return mockTickets[ticketIndex];
+    }
+  },
+
+  // Get ticket comments
+  getComments: async (ticketId: string): Promise<Comment[]> => {
+    try {
+      const response = await api.get(`/ticket/${ticketId}/comments`);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get comments:', error);
+      return [];
+    }
+  },
+
+  // Add comment
+  addComment: async (ticketId: string, data: { text: string; public?: boolean }): Promise<Comment> => {
+    try {
+      const response = await api.post(`/ticket/${ticketId}/comments`, data);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+      throw error;
+    }
+  },
+
+  // Get time tracking
+  getTimeTracking: async (ticketId: string): Promise<TimeTracking[]> => {
+    try {
+      const response = await api.get(`/ticket/${ticketId}/time`);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get time tracking:', error);
+      return [];
+    }
+  },
+
+  // Add time tracking
+  addTimeTracking: async (ticketId: string, data: { title: string; comment?: string; time: number }): Promise<TimeTracking> => {
+    try {
+      const response = await api.post(`/ticket/${ticketId}/time`, data);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to add time tracking:', error);
+      throw error;
+    }
+  },
+};
+
+// User API functions
+export const userApi = {
+  getUsers: async (): Promise<User[]> => {
+    try {
+      const response = await api.get('/users');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get users:', error);
+      return [];
+    }
+  },
+
+  getUser: async (id: string): Promise<User> => {
+    try {
+      const response = await api.get(`/users/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get user:', error);
+      throw error;
+    }
+  },
+
+  createUser: async (data: { email: string; password: string; name: string; admin: boolean }): Promise<User> => {
+    try {
+      const response = await api.post('/users', data);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to create user:', error);
+      throw error;
+    }
+  },
+
+  updateUser: async (id: string, data: Partial<User>): Promise<User> => {
+    try {
+      const response = await api.put(`/users/${id}`, data);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to update user:', error);
+      throw error;
+    }
+  },
+
+  deleteUser: async (id: string): Promise<void> => {
+    try {
+      await api.delete(`/users/${id}`);
+    } catch (error) {
+      console.error('Failed to delete user:', error);
+      throw error;
     }
   },
 };

@@ -18,7 +18,10 @@ const priorityColors = {
 } as const
 
 const statusColors = {
-  open: 'success',
+  needs_support: 'default',
+  in_progress: 'warning',
+  waiting_for_customer: 'secondary',
+  resolved: 'success',
   closed: 'secondary',
 } as const
 
@@ -39,7 +42,7 @@ export function TicketCard({ ticket }: TicketCardProps) {
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between">
               <CardTitle className="line-clamp-2 text-lg font-semibold text-white group-hover:text-gray-200">
-                {ticket.subject}
+                {ticket.title}
               </CardTitle>
               <div className="flex flex-col gap-2">
                 <Badge 
@@ -59,15 +62,15 @@ export function TicketCard({ ticket }: TicketCardProps) {
           </CardHeader>
           <CardContent className="pt-0">
             <p className="line-clamp-3 text-sm text-gray-400 group-hover:text-gray-300">
-              {ticket.description}
+              {ticket.detail}
             </p>
             <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
               <span>
-                Created {formatDistanceToNow(new Date(ticket.created_at), { addSuffix: true })}
+                Created {formatDistanceToNow(new Date(ticket.createdAt), { addSuffix: true })}
               </span>
-              {ticket.assigned_to && (
+              {ticket.assignedTo && (
                 <span className="text-gray-400">
-                  Assigned to {ticket.assigned_to}
+                  Assigned to {ticket.assignedTo.name}
                 </span>
               )}
             </div>

@@ -81,40 +81,47 @@ server.addHook("preHandler", async function (request: any, reply: any) {
 
 const start = async () => {
   try {
-    // Run prisma generate and migrate commands before starting the server
-    await new Promise<void>((resolve, reject) => {
-      exec("npx prisma migrate deploy", (err, stdout, stderr) => {
-        if (err) {
-          console.error(err);
-          reject(err);
-        }
-        console.log(stdout);
-        console.error(stderr);
-
-        exec("npx prisma generate", (err, stdout, stderr) => {
+    // Check if we're in mock mode (no database)
+    const isMockMode = process.env.MOCK_MODE === 'true' || !process.env.DATABASE_URL;
+    
+    if (!isMockMode) {
+      // Run prisma generate and migrate commands before starting the server
+      await new Promise<void>((resolve, reject) => {
+        exec("npx prisma migrate deploy", (err, stdout, stderr) => {
           if (err) {
             console.error(err);
             reject(err);
           }
           console.log(stdout);
           console.error(stderr);
-        });
 
-        exec("npx prisma db seed", (err, stdout, stderr) => {
-          if (err) {
-            console.error(err);
-            reject(err);
-          }
-          console.log(stdout);
-          console.error(stderr);
-          resolve();
+          exec("npx prisma generate", (err, stdout, stderr) => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            }
+            console.log(stdout);
+            console.error(stderr);
+          });
+
+          exec("npx prisma db seed", (err, stdout, stderr) => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            }
+            console.log(stdout);
+            console.error(stderr);
+            resolve();
+          });
         });
       });
-    });
 
-    // connect to database
-    await prisma.$connect();
-    server.log.info("Connected to Prisma");
+      // connect to database
+      await prisma.$connect();
+      server.log.info("Connected to Prisma");
+    } else {
+      server.log.info("Running in mock mode - no database required");
+    }
 
     const port = 5003;
 
@@ -138,10 +145,14 @@ const start = async () => {
       }
     );
 
-    setInterval(() => getEmails(), 10000); // Call getEmails every minute
+    if (!isMockMode) {
+      setInterval(() => getEmails(), 10000); // Call getEmails every minute
+    }
   } catch (err) {
     server.log.error(err);
-    await prisma.$disconnect();
+    if (!process.env.MOCK_MODE) {
+      await prisma.$disconnect();
+    }
     process.exit(1);
   }
 };

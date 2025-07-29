@@ -13,9 +13,10 @@ import Link from 'next/link'
 export default function CreateTicket() {
   const router = useRouter()
   const [formData, setFormData] = useState<CreateTicketData>({
-    subject: '',
-    description: '',
+    title: '',
+    detail: '',
     priority: 'medium',
+    type: 'support',
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -23,7 +24,7 @@ export default function CreateTicket() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!formData.subject.trim() || !formData.description.trim()) {
+    if (!formData.title.trim() || !formData.detail?.trim()) {
       setError('Please fill in all required fields')
       return
     }
@@ -85,14 +86,14 @@ export default function CreateTicket() {
                 )}
 
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium text-white">
-                    Subject *
+                  <label htmlFor="title" className="text-sm font-medium text-white">
+                    Title *
                   </label>
                   <input
-                    id="subject"
+                    id="title"
                     type="text"
-                    value={formData.subject}
-                    onChange={(e) => handleChange('subject', e.target.value)}
+                    value={formData.title}
+                    onChange={(e) => handleChange('title', e.target.value)}
                     className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600"
                     placeholder="Brief description of the issue"
                     required
@@ -116,13 +117,13 @@ export default function CreateTicket() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="description" className="text-sm font-medium text-white">
+                  <label htmlFor="detail" className="text-sm font-medium text-white">
                     Description *
                   </label>
                   <textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => handleChange('description', e.target.value)}
+                    id="detail"
+                    value={formData.detail}
+                    onChange={(e) => handleChange('detail', e.target.value)}
                     rows={6}
                     className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 resize-none"
                     placeholder="Provide detailed information about the issue..."

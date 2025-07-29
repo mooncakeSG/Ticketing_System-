@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ticketApi, Ticket } from '@/lib/api'
-import { Plus, Ticket as TicketIcon, Clock, CheckCircle, AlertCircle } from 'lucide-react'
+import { Plus, Ticket as TicketIcon, Clock, CheckCircle, AlertCircle, TrendingUp, FileText, Shield } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Dashboard() {
@@ -33,8 +33,8 @@ export default function Dashboard() {
     fetchTickets()
   }, [])
 
-  const openTickets = tickets.filter(ticket => ticket.status === 'open')
-  const closedTickets = tickets.filter(ticket => ticket.status === 'closed')
+  const openTickets = tickets.filter(ticket => ticket.status === 'needs_support' || ticket.status === 'in_progress')
+  const closedTickets = tickets.filter(ticket => ticket.status === 'resolved' || ticket.status === 'closed')
   const highPriorityTickets = tickets.filter(ticket => ticket.priority === 'high')
 
   const stats = [
@@ -128,6 +128,73 @@ export default function Dashboard() {
               </Card>
             </motion.div>
           ))}
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Link href="/analytics">
+            <Card className="bg-gray-900/50 border-gray-800 hover:bg-gray-800/50 transition-colors cursor-pointer">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="h-12 w-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="h-6 w-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium">Analytics</h3>
+                    <p className="text-gray-400 text-sm">View performance metrics</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link href="/reports">
+            <Card className="bg-gray-900/50 border-gray-800 hover:bg-gray-800/50 transition-colors cursor-pointer">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="h-12 w-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <FileText className="h-6 w-6 text-green-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium">Reports</h3>
+                    <p className="text-gray-400 text-sm">Generate detailed reports</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link href="/admin">
+            <Card className="bg-gray-900/50 border-gray-800 hover:bg-gray-800/50 transition-colors cursor-pointer">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="h-12 w-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                    <Shield className="h-6 w-6 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium">Admin</h3>
+                    <p className="text-gray-400 text-sm">System administration</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link href="/tickets">
+            <Card className="bg-gray-900/50 border-gray-800 hover:bg-gray-800/50 transition-colors cursor-pointer">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                    <TicketIcon className="h-6 w-6 text-purple-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium">All Tickets</h3>
+                    <p className="text-gray-400 text-sm">View all tickets</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
 
         {/* Recent Tickets */}
