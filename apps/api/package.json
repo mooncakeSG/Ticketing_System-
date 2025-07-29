@@ -6,7 +6,6 @@
   "author": "Jack Andrews",
   "license": "MIT",
   "scripts": {
-    "postinstall": "prisma generate",
     "generate": "prisma generate",
     "db:push": "prisma db push --accept-data-loss",
     "db:migrate": "prisma migrate dev",
@@ -14,6 +13,7 @@
     "dev": "ts-node-dev --respawn src/main.ts"
   },
   "devDependencies": {
+    "@cspotcode/source-map-support": "^0.8.1",
     "@types/bcrypt": "^5.0.0",
     "@types/email-reply-parser": "^1",
     "@types/formidable": "^3.4.5",

@@ -68,29 +68,66 @@ A modern, developer-friendly ticketing system built with Next.js App Router, fea
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
+### Option 1: Full Stack Development (Recommended)
 
+1. **Clone the repository**
 ```bash
 git clone https://github.com/mooncakeSG/Ticketing_System-.git
 cd Ticketing_System-
 ```
 
-### 2. Install dependencies
+2. **Install all dependencies**
+```bash
+# Install frontend dependencies
+yarn install
 
+# Install backend dependencies
+cd backend
+pip install -r requirements.txt
+cd ..
+```
+
+3. **Start both backend and frontend**
+```bash
+# Start both servers together
+yarn dev:full
+
+# Or start them separately:
+# Backend: yarn backend
+# Frontend: yarn frontend
+```
+
+4. **Access the application**
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend API: [http://localhost:5003](http://localhost:5003)
+
+### Option 2: Frontend Only (Mock Data)
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/mooncakeSG/Ticketing_System-.git
+cd Ticketing_System-
+```
+
+2. **Install frontend dependencies**
 ```bash
 cd apps/client
-npm install --legacy-peer-deps
+yarn install
 ```
 
-### 3. Start the development server
-
+3. **Start the frontend**
 ```bash
-npm run dev
+yarn dev
 ```
 
-### 4. Open your browser
-
+4. **Open your browser**
 Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🔐 Demo Credentials
+
+For testing the full stack version:
+- **Email**: `demo@example.com`
+- **Password**: `demo123`
 
 ---
 

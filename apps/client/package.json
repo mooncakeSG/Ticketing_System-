@@ -71,6 +71,7 @@
     "use-debounce": "^10.0.1"
   },
   "devDependencies": {
+    "@alloc/quick-lru": "^5.2.0",
     "@types/add": "^2",
     "@types/lodash": "^4",
     "@types/next": "^9.0.0",

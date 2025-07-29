@@ -303,6 +303,55 @@ export function authRoutes(fastify: FastifyInstance) {
         password: string;
       };
 
+      // Check if we're in mock mode
+      const isMockMode = process.env.MOCK_MODE === 'true' || !process.env.DATABASE_URL;
+      
+      if (isMockMode) {
+        // Mock authentication for demo purposes
+        if (email === "demo@example.com" && password === "demo123") {
+          const mockUser = {
+            id: "mock-user-id",
+            email: "demo@example.com",
+            name: "Demo User",
+            isAdmin: true,
+            language: "en",
+            ticket_created: true,
+            ticket_status_changed: true,
+            ticket_comments: true,
+            ticket_assigned: true,
+            firstLogin: false,
+            external_user: false,
+          };
+
+          // Generate a mock token
+          const secret = process.env.SECRET || "mock-secret-key";
+          const token = jwt.sign(
+            {
+              data: {
+                id: mockUser.id,
+                sessionId: crypto.randomBytes(32).toString("hex"),
+              },
+            },
+            secret,
+            {
+              expiresIn: "8h",
+              algorithm: "HS256",
+            }
+          );
+
+          reply.send({
+            token,
+            user: mockUser,
+          });
+          return;
+        } else {
+          return reply.code(401).send({
+            message: "Invalid email or password",
+          });
+        }
+      }
+
+      // Real database authentication
       let user = await prisma.user.findUnique({
         where: { email },
       });
