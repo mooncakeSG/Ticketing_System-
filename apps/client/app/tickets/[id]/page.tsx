@@ -15,7 +15,8 @@ import {
   AlertCircle,
   User,
   Calendar,
-  MessageSquare
+  MessageSquare,
+  File
 } from 'lucide-react'
 import { formatDistanceToNow, format } from 'date-fns'
 import Link from 'next/link'
@@ -265,10 +266,24 @@ export default function TicketDetail() {
                     <User className="h-4 w-4 mr-2" />
                     Assign Ticket
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    Add Comment
-                  </Button>
+                  <Link href={`/tickets/${ticketId}/comments`}>
+                    <Button variant="outline" className="w-full justify-start">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      View Comments
+                    </Button>
+                  </Link>
+                  <Link href={`/tickets/${ticketId}/attachments`}>
+                    <Button variant="outline" className="w-full justify-start">
+                      <File className="h-4 w-4 mr-2" />
+                      Attachments
+                    </Button>
+                  </Link>
+                  <Link href={`/tickets/${ticketId}/time`}>
+                    <Button variant="outline" className="w-full justify-start">
+                      <Clock className="h-4 w-4 mr-2" />
+                      Time Tracking
+                    </Button>
+                  </Link>
                   <Button variant="outline" className="w-full justify-start">
                     <Calendar className="h-4 w-4 mr-2" />
                     Set Due Date

@@ -17,7 +17,8 @@ import {
   Save,
   Moon,
   Sun,
-  Edit
+  Edit,
+  Zap
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -169,6 +170,40 @@ export default function Settings() {
                     <h3 className="text-lg font-semibold text-white">Security</h3>
                   </div>
                   <p className="text-gray-400 text-sm">Password, two-factor authentication, and privacy</p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Appearance */}
+          <Link href="/settings/appearance">
+            <div className="bg-gray-900/50 border border-gray-800 hover:border-gray-700 hover:bg-gray-900/80 transition-all duration-200 cursor-pointer h-full rounded-lg p-6">
+              <div className="flex items-start space-x-4">
+                <div className="h-12 w-12 rounded-lg bg-gray-800 flex items-center justify-center">
+                  <Palette className="h-6 w-6 text-blue-500" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-white">Appearance</h3>
+                  </div>
+                  <p className="text-gray-400 text-sm">Theme, colors, layout, and typography</p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Integrations */}
+          <Link href="/settings/integrations">
+            <div className="bg-gray-900/50 border border-gray-800 hover:border-gray-700 hover:bg-gray-900/80 transition-all duration-200 cursor-pointer h-full rounded-lg p-6">
+              <div className="flex items-start space-x-4">
+                <div className="h-12 w-12 rounded-lg bg-gray-800 flex items-center justify-center">
+                  <Zap className="h-6 w-6 text-blue-500" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-white">Integrations</h3>
+                  </div>
+                  <p className="text-gray-400 text-sm">Third-party services and API connections</p>
                 </div>
               </div>
             </div>
