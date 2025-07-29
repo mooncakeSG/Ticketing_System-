@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Peppermint Ticket Management 🍵</h1>
+<h1 align="center">Welcome to the Peppermint inspired Ticket Management System 🍵</h1>
 <p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-0.2-blue.svg?cacheSeconds=2592000" />
   <a target="_blank">
@@ -9,100 +9,230 @@
 <p align="center">
     <img src="./static/logo.svg" alt="Logo" height="80px" >
 </p>
-<p align="center">This project is supported by:</p>
-<p align="center">
-  <a href="https://www.digitalocean.com/">
-    <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/SVG/DO_Logo_horizontal_blue.svg" width="201px">
+    <img src="https://img.favpng.com/11/0/21/help-desk-issue-tracking-system-service-ticket-png-favpng-46SSdUxp0NmHPXdKQUyK5h091.jpg" width="201px">
   </a>
 </p>
 
-> Ticket Management System in order to help helpdesks & service desks manage internal staff & customer requests
+# 🧾 Modern Ticketing System
+
+A modern, developer-friendly ticketing system built with Next.js App Router, featuring a clean black & white design inspired by Cal.com and Radix UI.
+
+> Elegant. Fast. Extendable. Built for teams and developers.
+
+---
+
+## 📦 Tech Stack
+
+| Layer      | Technology                              |
+|------------|-----------------------------------------|
+| Frontend   | Next.js 13+ (App Router), TypeScript   |
+| Styling    | Tailwind CSS, Custom CSS Variables      |
+| UI Components | Radix UI, Lucide React Icons         |
+| State Management | React Hooks, useState/useEffect    |
+| API Client | Axios with interceptors                |
+| Animations | Subtle hover effects (Framer Motion removed) |
+| I18n       | Multi-language support (16 locales)    |
+
+---
 
 ## ✨ Features
 
-- **Ticket Creation**: Bog standard ticket creation with a markdown editor and file uploads
-- **A log of client history**
-- **Markdown based Notebook with todo lists**
-- **Responsive**: Designed for variable screen sizes from mobile up to 4k
-- **Multi-deployment**: Quickly deploy using docker & pm2
-- **Simple to Use**: Designed to be easy to use with a simple logical workflow
+### 🎫 **Core Ticketing System**
+- ✅ **Dashboard** - Overview with statistics and recent tickets
+- ✅ **Ticket Management** - Create, view, edit, and close tickets
+- ✅ **Ticket Details** - Full ticket view with actions and history
+- ✅ **All Tickets** - Comprehensive list with search and filtering
+- ✅ **Status Tracking** - Open, closed, in-progress statuses
+- ✅ **Priority Levels** - Low, medium, high priority support
 
-## 🐳 Installation with docker
+### 👥 **User Management**
+- ✅ **Users List** - View all users with search and filtering
+- ✅ **User Profiles** - Detailed user information and statistics
+- ✅ **Create User** - Add new users with role assignment
+- ✅ **Edit User** - Modify user details and permissions
+- ✅ **User Actions** - View profile, edit, and manage users
 
-Check out the getting started guide if this is the first time you've used Peppermint:
+### 💬 **Messaging System**
+- ✅ **Messages List** - View all conversations with search
+- ✅ **Message Details** - Full conversation thread view
+- ✅ **Compose Message** - Create new messages with recipients
+- ✅ **Message Actions** - Reply, archive, delete, forward
+- ✅ **Priority & Status** - Message priority and status tracking
 
-```
-version: "3.1"
+### ⚙️ **Settings & Configuration**
+- ✅ **Settings Dashboard** - Quick settings and account info
+- ✅ **General Settings** - Company info, system preferences
+- ✅ **Notifications Settings** - Email, push, in-app, SMS config
+- ✅ **Security Settings** - Password, 2FA, sessions management
+- ✅ **Theme Support** - Dark mode with high contrast design
 
-services:
-  peppermint_postgres:
-    container_name: peppermint_postgres
-    image: postgres:latest
-    restart: always
-    ports:
-      - 5432:5432
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: peppermint
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: peppermint
+### 🔐 **Authentication**
+- ✅ **Login Page** - Modern authentication interface
+- ✅ **OAuth Support** - Ready for external auth providers
+- ✅ **Session Management** - Token-based authentication
 
-  peppermint:
-    container_name: peppermint
-    image: pepperlabs/peppermint:latest
-    ports:
-      - 3000:3000
-      - 5003:5003
-    restart: always
-    depends_on:
-      - peppermint_postgres
-    environment:
-      DB_USERNAME: "peppermint"
-      DB_PASSWORD: "1234"
-      DB_HOST: "peppermint_postgres"
-      SECRET: 'peppermint4life'
+### 🎨 **UI/UX Features**
+- ✅ **Responsive Design** - Mobile-first approach
+- ✅ **Dark Theme** - Elegant black & white design
+- ✅ **Smooth Navigation** - Client-side routing with Next.js
+- ✅ **Loading States** - Proper loading and error handling
+- ✅ **Search & Filter** - Advanced filtering capabilities
+- ✅ **Reusable Components** - Button, Card, Badge, Modal components
 
-volumes:
- pgdata:
+---
 
-```
+## 🚀 Getting Started
 
-Once this is completed then you can go to your server-ip:3000 which was added to the compose file and login.
+### 1. Clone the repository
 
-The default login credentials are
-
-```
-admin@admin.com
-1234
+```bash
+git clone https://github.com/mooncakeSG/Ticketing_System-.git
+cd Ticketing_System-
 ```
 
-## One click installers
+### 2. Install dependencies
 
-- We are now on linode marketplace we can be viewed here <a href="https://www.linode.com/marketplace/apps/peppermint-lab/peppermint/">here</a>
-- We have a one line installer for Ubuntu and Debian (for the moment) and can be viewed here <a href="https://spearmint.sh/">here</a>
+```bash
+cd apps/client
+npm install --legacy-peer-deps
+```
 
-## Documentation
+### 3. Start the development server
 
-We have started working on creating documentation for peppermint which covers development to general usage. Click <a href="https://docs.peppermint.sh">here</a> to be taken directly there.
+```bash
+npm run dev
+```
 
-## Motivation
+### 4. Open your browser
 
-- This was initially a project to tie together my react and nodeJS skills and show something for my portfolio
-- It looked terrible! But it worked and showed functionaility, which got me a job.
-- Learn and deploy with docker
-- Redo the UI, completly from the ground up. Which has now been completed and for me looks great.
-- Build on this foundation and create a fully fledged product which offers what the big boys offer, but, at a much better ROI than signing up for zendesk etc.
+Navigate to [http://localhost:3000](http://localhost:3000)
 
-Give a ⭐️ if this project helped you!
+---
 
-## Star History
+## 📁 Project Structure
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Peppermint-Lab/peppermint&type=Date)](https://star-history.com/#Peppermint-Lab/peppermint&Date)
+```
+apps/client/
+├── app/                    # Next.js App Router pages
+│   ├── (auth)/            # Authentication pages
+│   ├── create/            # Create ticket form
+│   ├── messages/          # Messaging system
+│   ├── settings/          # Settings & configuration
+│   ├── tickets/           # Ticket management
+│   └── users/             # User management
+├── components/            # Reusable UI components
+│   ├── layout/           # Layout components
+│   └── ui/               # Base UI components
+├── lib/                  # Utilities and API client
+└── styles/               # Global styles
+```
 
-## Activity
-![Alt](https://repobeats.axiom.co/api/embed/9b568eb9e41b60f60fe155836b1ef0fb2a7b93b9.svg "Repobeats analytics image")
+---
 
-- Website: [peppermint.sh](https://peppermint.sh/)
-- Github: [@potts99](https://github.com/potts99)
-- LinkedIn: [@jack-andrews-146852131](https://linkedin.com/in/jack-andrews-146852131)
+## 🎯 Key Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Dashboard | `/` | Main dashboard with statistics |
+| All Tickets | `/tickets` | List all tickets with filters |
+| Ticket Detail | `/tickets/[id]` | Individual ticket view |
+| Create Ticket | `/create` | New ticket form |
+| Users List | `/users` | Manage all users |
+| User Detail | `/users/[id]` | Individual user profile |
+| Edit User | `/users/[id]/edit` | Edit user information |
+| Create User | `/users/create` | Add new user |
+| Messages | `/messages` | All conversations |
+| Message Detail | `/messages/[id]` | Individual conversation |
+| Compose Message | `/messages/compose` | New message form |
+| Settings | `/settings` | Main settings dashboard |
+| General Settings | `/settings/general` | System configuration |
+| Notifications | `/settings/notifications` | Notification preferences |
+| Security | `/settings/security` | Security settings |
+| Login | `/auth/login` | Authentication page |
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env.local` file in `apps/client/`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+NEXT_PUBLIC_APP_NAME=Peppermint
+```
+
+### API Integration
+
+The system is designed to work with a Laravel backend but includes comprehensive mock data for standalone operation. Update `lib/api.ts` to connect to your backend.
+
+---
+
+## 🎨 Design System
+
+### Color Palette
+- **Primary**: Black (`#000000`) and White (`#ffffff`)
+- **Gray Scale**: Various shades for UI elements
+- **Accent**: Purple for highlights and active states
+
+### Typography
+- **Font**: Inter (Google Fonts)
+- **Weights**: 400 (regular), 500 (medium), 600 (semibold)
+
+### Components
+- **Button**: Multiple variants (primary, outline, ghost)
+- **Card**: Consistent card layout with header, content, footer
+- **Badge**: Status indicators with color coding
+- **Modal**: Reusable modal components
+
+---
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+```bash
+npm run build
+```
+
+### Docker
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+---
+
+## 🤝 Contributing (Open to any suggestions)
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Cal.com** - For UI/UX inspiration
+- **Radix UI** - For component design patterns
+- **Next.js Team** - For the amazing App Router
+- **Tailwind CSS** - For the utility-first CSS framework
+- **Peppermint** - Ticketing System
+---
+
