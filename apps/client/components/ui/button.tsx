@@ -36,15 +36,22 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  "data-testid"?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, "data-testid": dataTestId, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+    
+    // Ensure aria-label is set if not provided but data-testid is
+    const ariaLabel = props["aria-label"] || (dataTestId ? dataTestId.replace(/-/g, " ") : undefined)
+    
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        data-testid={dataTestId}
+        aria-label={ariaLabel}
         {...props}
       />
     )

@@ -179,7 +179,7 @@ export default function UsersList() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -226,7 +226,7 @@ export default function UsersList() {
 
         {/* Filters */}
         <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -294,31 +294,32 @@ export default function UsersList() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 lg:gap-6">
             {filteredUsers.map((user, index) => (
               <motion.div
                 key={user.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                className="min-w-0"
               >
-                <Card className="bg-gray-900/50 border-gray-800 hover:border-gray-700 hover:bg-gray-900/80 transition-all duration-200">
-                  <CardHeader className="pb-3">
+                <Card className="h-full bg-gray-900/50 border-gray-800 hover:border-gray-700 hover:bg-gray-900/80 transition-all duration-200">
+                  <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="h-12 w-12 rounded-full bg-gray-700 flex items-center justify-center text-white font-semibold">
+                      <div className="flex items-center space-x-3 min-w-0 flex-1">
+                        <div className="h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-semibold flex-shrink-0">
                           {user.avatar ? (
-                            <img src={user.avatar} alt={user.name} className="h-12 w-12 rounded-full" />
+                            <img src={user.avatar} alt={user.name} className="h-10 w-10 rounded-full" />
                           ) : (
                             getInitials(user.name)
                           )}
                         </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-white">{user.name}</h3>
-                          <p className="text-sm text-gray-400">{user.email}</p>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-base font-semibold text-white truncate">{user.name}</h3>
+                          <p className="text-sm text-gray-400 truncate">{user.email}</p>
                         </div>
                       </div>
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-1 flex-shrink-0">
                         <Badge variant={roleColors[user.role] as any} className="text-xs">
                           {user.role}
                         </Badge>
@@ -329,17 +330,17 @@ export default function UsersList() {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                       {user.department && (
                         <div className="flex items-center text-sm text-gray-400">
-                          <Shield className="h-4 w-4 mr-2" />
-                          {user.department}
+                          <Shield className="h-4 w-4 mr-2 flex-shrink-0" />
+                          <span className="truncate">{user.department}</span>
                         </div>
                       )}
                       {user.phone && (
                         <div className="flex items-center text-sm text-gray-400">
-                          <Phone className="h-4 w-4 mr-2" />
-                          {user.phone}
+                          <Phone className="h-4 w-4 mr-2 flex-shrink-0" />
+                          <span className="truncate">{user.phone}</span>
                         </div>
                       )}
                       <div className="flex items-center justify-between text-sm">
@@ -351,20 +352,20 @@ export default function UsersList() {
                         <span className="text-white font-medium">{user.tickets_resolved}</span>
                       </div>
                       <div className="flex items-center justify-between pt-2">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-1">
                           <Link href={`/users/${user.id}`}>
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className="text-xs h-7 px-2">
                               View Profile
                             </Button>
                           </Link>
                           <Link href={`/users/${user.id}/edit`}>
-                            <Button variant="outline" size="sm">
-                              <Edit className="h-4 w-4 mr-1" />
+                            <Button variant="outline" size="sm" className="text-xs h-7 px-2">
+                              <Edit className="h-3 w-3 mr-1" />
                               Edit
                             </Button>
                           </Link>
                         </div>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" className="h-7 w-7">
                           <MoreVertical className="h-4 w-4" />
                         </Button>
                       </div>

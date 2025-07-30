@@ -4,7 +4,11 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getCookie } from "cookies-next";
 import { Fragment, useState } from "react";
 
-export default function ResetPassword({ user }) {
+interface ResetPasswordProps {
+  user: any; // You can define a more specific type if needed
+}
+
+export default function ResetPassword({ user }: ResetPasswordProps) {
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [check, setCheck] = useState("");

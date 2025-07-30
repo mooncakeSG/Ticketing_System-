@@ -1,8 +1,5 @@
-import { Coffee, LucideIcon } from "lucide-react";
-import * as React from "react";
-
-import { cn } from "@/shadcn/lib/utils";
-import { Button } from "@/shadcn/ui/button";
+import React from "react";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -10,14 +7,59 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/shadcn/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/shadcn/ui/popover";
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
 
 type Status = {
   value: string;
   label: string;
   icon: LucideIcon;
 };
+
+type User = {
+  value: string;
+  name: string;
+  icon?: LucideIcon;
+};
+
+type Client = {
+  value: string;
+  name: string;
+  icon?: LucideIcon;
+};
+
+interface UserComboProps {
+  value: User[];
+  update: (user: User | null) => void;
+  defaultName?: string;
+  hideInitial?: boolean;
+  showIcon?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+}
+
+interface IconComboProps {
+  value: Status[];
+  update: (status: Status | null) => void;
+  defaultName?: string;
+  hideInitial?: boolean;
+  disabled?: boolean;
+}
+
+interface ClientComboProps {
+  value: Client[];
+  update: (client: Client | null) => void;
+  defaultName?: string;
+  hideInitial?: boolean;
+  showIcon?: boolean;
+  disabled?: boolean;
+}
 
 export function UserCombo({
   value,
@@ -27,7 +69,7 @@ export function UserCombo({
   showIcon,
   disabled,
   placeholder,
-}) {
+}: UserComboProps) {
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState<any | null>(null);
 
@@ -99,13 +141,13 @@ export function UserCombo({
                     /> */}
                   <span>Unassign</span>
                 </CommandItem>
-                {value.map((val) => (
+                {value.map((val: User) => (
                   <CommandItem
                     className=" hover:cursor-pointer"
                     key={val.value}
                     value={val}
                     onSelect={(selected) => {
-                      const user = value.find((k) => k.name === selected);
+                      const user = value.find((k: User) => k.name === selected);
                       setSelectedStatus(user);
                       update(user);
                       setOpen(false);
@@ -129,10 +171,10 @@ export function IconCombo({
   defaultName,
   hideInitial,
   disabled,
-}) {
+}: IconComboProps) {
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState<any | null>(null);
-  const defaultIcon = value.find((k) => k.value === defaultName);
+  const defaultIcon = value.find((k: Status) => k.value === defaultName);
 
   console.log(disabled);
 
@@ -185,26 +227,18 @@ export function IconCombo({
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
-                {value.map((val) => (
+                {value.map((val: Status) => (
                   <CommandItem
                     className=" hover:cursor-pointer"
                     key={val.value}
                     value={val}
                     onSelect={(selected) => {
-                      const user = value.find((k) => k.name === selected);
+                      const user = value.find((k: Status) => k.name === selected);
                       setSelectedStatus(user);
                       update(user);
                       setOpen(false);
                     }}
                   >
-                    <val.icon
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        val.value === selectedStatus?.value
-                          ? "opacity-100"
-                          : "opacity-40"
-                      )}
-                    />
                     <span>{val.name}</span>
                   </CommandItem>
                 ))}
@@ -224,7 +258,7 @@ export function ClientCombo({
   hideInitial,
   showIcon,
   disabled,
-}) {
+}: ClientComboProps) {
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState<any | null>(null);
 
@@ -292,26 +326,18 @@ export function ClientCombo({
                     /> */}
                   <span>Unassign</span>
                 </CommandItem>
-                {value.map((val) => (
+                {value.map((val: Client) => (
                   <CommandItem
                     className=" hover:cursor-pointer"
                     key={val.value}
                     value={val}
                     onSelect={(selected) => {
-                      const user = value.find((k) => k.name === selected);
+                      const user = value.find((k: Client) => k.name === selected);
                       setSelectedStatus(user);
                       update(user);
                       setOpen(false);
                     }}
                   >
-                    {/* <val.icon
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        val.value === selectedStatus?.value
-                          ? "opacity-100"
-                          : "opacity-40"
-                      )}
-                    /> */}
                     <span>{val.name}</span>
                   </CommandItem>
                 ))}

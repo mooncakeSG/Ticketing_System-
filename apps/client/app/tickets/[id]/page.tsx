@@ -16,7 +16,9 @@ import {
   User,
   Calendar,
   MessageSquare,
-  File
+  File,
+  X,
+  RefreshCw
 } from 'lucide-react'
 import { formatDistanceToNow, format } from 'date-fns'
 import Link from 'next/link'
@@ -55,7 +57,7 @@ export default function TicketDetail() {
 
     try {
       setUpdating(true)
-      const updatedTicket = ticket.status === 'open' 
+      const updatedTicket = ticket.status === 'needs_support' || ticket.status === 'in_progress' 
         ? await ticketApi.closeTicket(ticket.id)
         : await ticketApi.reopenTicket(ticket.id)
       setTicket(updatedTicket)
@@ -73,7 +75,10 @@ export default function TicketDetail() {
   } as const
 
   const statusColors = {
-    open: 'success',
+    needs_support: 'destructive',
+    in_progress: 'warning',
+    waiting_for_customer: 'secondary',
+    resolved: 'success',
     closed: 'secondary',
   } as const
 
@@ -114,7 +119,7 @@ export default function TicketDetail() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold text-white">{ticket.subject}</h1>
+              <h1 className="text-3xl font-bold text-white">{ticket.title}</h1>
               <p className="text-gray-400 mt-1">Ticket #{ticket.id}</p>
             </div>
           </div>
@@ -123,7 +128,7 @@ export default function TicketDetail() {
               variant={statusColors[ticket.status] as any}
               className="text-sm"
             >
-              {ticket.status === 'open' ? (
+              {ticket.status === 'needs_support' || ticket.status === 'in_progress' ? (
                 <>
                   <Clock className="h-3 w-3 mr-1" />
                   Open
@@ -142,17 +147,23 @@ export default function TicketDetail() {
               {ticket.priority === 'high' && <AlertCircle className="h-3 w-3 mr-1" />}
               {ticket.priority}
             </Badge>
-            <Button
+            <Button 
+              variant={ticket.status === 'needs_support' || ticket.status === 'in_progress' ? 'destructive' : 'default'}
               onClick={handleStatusToggle}
               disabled={updating}
-              variant={ticket.status === 'open' ? 'destructive' : 'default'}
             >
               {updating ? (
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-              ) : ticket.status === 'open' ? (
-                'Close Ticket'
+              ) : ticket.status === 'needs_support' || ticket.status === 'in_progress' ? (
+                <>
+                  <X className="h-4 w-4 mr-2" />
+                  Close Ticket
+                </>
               ) : (
-                'Reopen Ticket'
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Reopen Ticket
+                </>
               )}
             </Button>
           </div>
@@ -172,7 +183,7 @@ export default function TicketDetail() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                    {ticket.description}
+                    {ticket.detail || 'No description provided'}
                   </p>
                 </CardContent>
               </Card>
@@ -229,24 +240,24 @@ export default function TicketDetail() {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400">Created</span>
                     <span className="text-white text-sm">
-                      {formatDistanceToNow(new Date(ticket.created_at), { addSuffix: true })}
+                      {ticket.createdAt ? formatDistanceToNow(new Date(ticket.createdAt), { addSuffix: true }) : 'Unknown'}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400">Updated</span>
                     <span className="text-white text-sm">
-                      {formatDistanceToNow(new Date(ticket.updated_at), { addSuffix: true })}
+                      {ticket.updatedAt ? formatDistanceToNow(new Date(ticket.updatedAt), { addSuffix: true }) : 'Unknown'}
                     </span>
                   </div>
-                  {ticket.assigned_to && (
+                  {ticket.assignedTo && (
                     <div className="flex items-center justify-between">
                       <span className="text-gray-400">Assigned to</span>
-                      <span className="text-white text-sm">{ticket.assigned_to}</span>
+                      <span className="text-white text-sm">{ticket.assignedTo.name}</span>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400">Created by</span>
-                    <span className="text-white text-sm">{ticket.created_by}</span>
+                    <span className="text-white text-sm">{ticket.createdBy?.name || 'Unknown'}</span>
                   </div>
                 </CardContent>
               </Card>

@@ -1,4 +1,4 @@
-import { Button } from "@radix-ui/themes";
+import { Button } from "../ui/button";
 import {
     AlertCircle,
     CheckCircle2,
@@ -17,17 +17,18 @@ import {
     UserPlus2,
 } from "lucide-react";
 import moment from "moment";
-import { useRouter } from "next/router";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import {
-    CommandDialog,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-    CommandSeparator
-} from "@/shadcn/ui/command";
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator
+} from "../ui/command";
 import { getCookie } from "cookies-next";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
@@ -39,6 +40,8 @@ export function CommandMenu() {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { user } = useUser();
   const token = getCookie("session") as string;
 
@@ -48,11 +51,9 @@ export function CommandMenu() {
       setOpen(false);
     }
 
-    router.events.on("routeChangeComplete", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router]);
+    // For app router, we don't have events, so we'll use pathname changes
+    setOpen(false);
+  }, [pathname]);
 
   const { data: ticketsData, refetch } = useQuery(
     "tickets",
@@ -114,20 +115,20 @@ export function CommandMenu() {
   const filteredAndGroupedTickets = useMemo(() => {
     if (!ticketsData) return null;
 
-    const filtered = ticketsData.filter((ticket) => {
+    const filtered = ticketsData.filter((ticket: Ticket) => {
       const searchLower = search.toLowerCase();
       return (
         ticket.title.toLowerCase().includes(searchLower) ||
         ticket.id.toString().includes(searchLower) ||
-        (ticket.detail || "").toLowerCase().includes(searchLower) ||
+        (ticket.description || "").toLowerCase().includes(searchLower) ||
         (ticket.assignedTo?.name || "").toLowerCase().includes(searchLower)
       );
     });
 
     // Group by status
     const groups = {
-      open: filtered.filter(t => !t.isComplete),
-      closed: filtered.filter(t => t.isComplete),
+      open: filtered.filter((t: Ticket) => !t.isComplete),
+      closed: filtered.filter((t: Ticket) => t.isComplete),
     };
 
     return groups;
@@ -135,7 +136,7 @@ export function CommandMenu() {
 
   const getStatusIcon = (ticket: Ticket) => {
     if (ticket.isComplete) return CheckCircle2;
-    switch (ticket.priority.toLowerCase()) {
+    switch (ticket.priority?.toLowerCase()) {
       case 'high':
         return AlertCircle;
       case 'medium':
@@ -216,7 +217,7 @@ export function CommandMenu() {
               {/* Open Tickets */}
               {filteredAndGroupedTickets.open.length > 0 && (
                 <CommandGroup heading="Open Tickets">
-                  {filteredAndGroupedTickets.open.map((ticket) => (
+                  {filteredAndGroupedTickets.open.map((ticket: Ticket) => (
                     <CommandItem
                       key={ticket.id}
                       onSelect={() => router.push(`/issue/${ticket.id}`)}
@@ -234,7 +235,7 @@ export function CommandMenu() {
               {/* Closed Tickets */}
               {filteredAndGroupedTickets.closed.length > 0 && (
                 <CommandGroup heading="Closed Tickets">
-                  {filteredAndGroupedTickets.closed.map((ticket) => (
+                  {filteredAndGroupedTickets.closed.map((ticket: Ticket) => (
                     <CommandItem
                       key={ticket.id}
                       onSelect={() => router.push(`/issue/${ticket.id}`)}
@@ -254,15 +255,15 @@ export function CommandMenu() {
           <CommandSeparator />
 
           {/* Quick Actions for Current Ticket */}
-          {router.pathname.includes("/issue/") &&
-            router.query.id &&
+          {pathname.includes("/issue/") &&
+            searchParams.get("id") &&
             ticketsData && (
               <CommandGroup heading="Ticket Actions">
                 {/* Status Toggle */}
                 <CommandItem
                   onSelect={() => {
                     const ticket = ticketsData.find(
-                      (t: Ticket) => t.id === router.query.id
+                      (t: Ticket) => t.id === searchParams.get("id")
                     );
                     if (ticket) {
                       updateTicketStatus(ticket);
@@ -280,7 +281,7 @@ export function CommandMenu() {
                     key={priority.value}
                     onSelect={() => {
                       const ticket = ticketsData.find(
-                        (t: Ticket) => t.id === router.query.id
+                        (t: Ticket) => t.id === searchParams.get("id")
                       );
                       if (ticket) {
                         updateTicketPriority(ticket, priority.value);
@@ -300,9 +301,10 @@ export function CommandMenu() {
                       <CommandItem
                         key={user.id}
                         onSelect={() => {
-                          if (router.query.id) {
+                          const id = searchParams.get("id");
+                          if (id) {
                             updateTicketAssignee(
-                              router.query.id as string,
+                              id,
                               user
                             );
                             setOpen(false);
@@ -315,9 +317,10 @@ export function CommandMenu() {
                     ))}
                     <CommandItem
                       onSelect={() => {
-                        if (router.query.id) {
+                        const id = searchParams.get("id");
+                        if (id) {
                           updateTicketAssignee(
-                            router.query.id as string,
+                            id,
                             undefined
                           );
                           setOpen(false);
@@ -334,8 +337,9 @@ export function CommandMenu() {
                 {user?.isAdmin && (
                   <CommandItem
                     onSelect={() => {
-                      if (router.query.id) {
-                        deleteTicket(router.query.id as string);
+                      const id = searchParams.get("id");
+                      if (id) {
+                        deleteTicket(id);
                         router.push("/issues");
                         setOpen(false);
                       }

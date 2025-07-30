@@ -35,7 +35,7 @@ export default function TicketKanban({ columns, uiSettings }: TicketKanbanProps)
                     draggable({
                       element,
                       dragHandle: element,
-                      data: { ticketId: ticket.id } as const,
+                      getInitialData: () => ({ ticketId: ticket.id }),
                     });
                   }}
                   className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border dark:border-gray-700 p-3 cursor-move hover:shadow-md transition-shadow"
@@ -77,8 +77,8 @@ export default function TicketKanban({ columns, uiSettings }: TicketKanbanProps)
                       
                       {uiSettings.showPriority && (
                         <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium capitalize flex-shrink-0
-                          ${ticket.priority.toLowerCase() === 'high' ? 'bg-red-100 text-red-800' : 
-                            ticket.priority.toLowerCase() === 'normal' ? 'bg-green-100 text-green-800' : 
+                          ${ticket.priority?.toLowerCase() === 'high' ? 'bg-red-100 text-red-800' : 
+                            ticket.priority?.toLowerCase() === 'normal' ? 'bg-green-100 text-green-800' : 
                             'bg-blue-100 text-blue-800'}`}
                         >
                           {ticket.priority}

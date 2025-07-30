@@ -56,7 +56,7 @@ export function useTicketFilters(tickets: Ticket[] = []) {
   const filteredTickets = tickets.filter((ticket) => {
     const priorityMatch =
       selectedPriorities.length === 0 ||
-      selectedPriorities.includes(ticket.priority);
+      (ticket.priority && selectedPriorities.includes(ticket.priority));
     const statusMatch =
       selectedStatuses.length === 0 ||
       selectedStatuses.includes(ticket.isComplete ? "closed" : "open");

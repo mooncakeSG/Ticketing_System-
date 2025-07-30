@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, Play, Pause, Stop, Clock, Timer, Calendar, BarChart3, Download, Plus, Edit, Trash2 } from 'lucide-react'
+import { ArrowLeft, Play, Pause, Square, Clock, Timer, Calendar, BarChart3, Download, Plus, Edit, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { MainLayout } from '@/components/layout/MainLayout'
@@ -272,7 +272,7 @@ export default function TicketTimeTracking() {
                   <p className="text-gray-400 text-sm">Started at {formatDate(runningEntry.startTime!)}</p>
                 </div>
                 <Button onClick={() => handleStopTimer(runningEntry.id)}>
-                  <Stop className="h-4 w-4 mr-2" />
+                  <Square className="h-4 w-4 mr-2" />
                   Stop Timer
                 </Button>
               </div>

@@ -5,7 +5,11 @@ import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 
-export default function UpdateUserModal({ user }) {
+interface UpdateUserModalProps {
+  user: any; // You can define a more specific type if needed
+}
+
+export default function UpdateUserModal({ user }: UpdateUserModalProps) {
   const [open, setOpen] = useState(false);
 
   const [admin, setAdmin] = useState(user.isAdmin);

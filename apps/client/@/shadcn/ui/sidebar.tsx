@@ -71,12 +71,15 @@ const SidebarProvider = React.forwardRef<
 
     // Initialize state from localStorage
     const [_open, _setOpen] = React.useState(() => {
-      try {
-        const storedValue = localStorage.getItem(SIDEBAR_STORAGE_KEY)
-        return storedValue ? JSON.parse(storedValue) : defaultOpen
-      } catch (e) {
-        return defaultOpen
+      if (typeof window !== 'undefined') {
+        try {
+          const storedValue = localStorage.getItem(SIDEBAR_STORAGE_KEY)
+          return storedValue ? JSON.parse(storedValue) : defaultOpen
+        } catch (e) {
+          return defaultOpen
+        }
       }
+      return defaultOpen
     })
     
     const open = openProp ?? _open
@@ -93,10 +96,12 @@ const SidebarProvider = React.forwardRef<
         _setOpen(newValue)
 
         // Save to localStorage
-        try {
-          localStorage.setItem(SIDEBAR_STORAGE_KEY, JSON.stringify(newValue))
-        } catch (e) {
-          console.warn('Failed to save sidebar state to localStorage:', e)
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(SIDEBAR_STORAGE_KEY, JSON.stringify(newValue))
+          } catch (e) {
+            console.warn('Failed to save sidebar state to localStorage:', e)
+          }
         }
       },
       [setOpenProp, open]
@@ -111,18 +116,20 @@ const SidebarProvider = React.forwardRef<
 
     // Adds a keyboard shortcut to toggle the sidebar.
     React.useEffect(() => {
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (
-          (event.key === SIDEBAR_KEYBOARD_SHORTCUT || event.key === "[") &&
-          (event.metaKey || event.ctrlKey)
-        ) {
-          event.preventDefault()
-          toggleSidebar()
+      if (typeof window !== 'undefined') {
+        const handleKeyDown = (event: KeyboardEvent) => {
+          if (
+            (event.key === SIDEBAR_KEYBOARD_SHORTCUT || event.key === "[") &&
+            (event.metaKey || event.ctrlKey)
+          ) {
+            event.preventDefault()
+            toggleSidebar()
+          }
         }
-      }
 
-      window.addEventListener("keydown", handleKeyDown)
-      return () => window.removeEventListener("keydown", handleKeyDown)
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+      }
     }, [toggleSidebar])
 
     // We add a state so that we can do data-state="expanded" or "collapsed".

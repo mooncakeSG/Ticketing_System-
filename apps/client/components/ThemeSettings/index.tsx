@@ -23,18 +23,19 @@ export default function ThemeSettings() {
   const { state } = useSidebar();
 
   useEffect(() => {
-    // Retrieve the saved theme from localStorage or default to 'light'
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.className = savedTheme;
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      setTheme(savedTheme);
+      document.documentElement.className = savedTheme;
+    }
   }, []);
 
-  const toggleTheme = (selectedTheme) => {
-    // Update the class on the root element
-    document.documentElement.className = selectedTheme;
-    // Update state and save the theme in localStorage
+  const toggleTheme = (selectedTheme: string) => {
     setTheme(selectedTheme);
-    localStorage.setItem("theme", selectedTheme);
+    if (typeof window !== 'undefined') {
+      document.documentElement.className = selectedTheme;
+      localStorage.setItem("theme", selectedTheme);
+    }
   };
 
   return (

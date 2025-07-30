@@ -45,12 +45,14 @@ export function useTicketView(tickets: Ticket[] = []) {
   const sortedTickets = [...tickets].sort((a, b) => {
     switch (sortBy) {
       case 'newest':
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        return new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime();
       case 'oldest':
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        return new Date(a.createdAt || '').getTime() - new Date(b.createdAt || '').getTime();
       case 'priority':
-        const priorityOrder = { high: 0, normal: 1, low: 2 };
-        return priorityOrder[a.priority.toLowerCase()] - priorityOrder[b.priority.toLowerCase()];
+        const priorityOrder: { [key: string]: number } = { high: 0, normal: 1, low: 2 };
+        const aPriority = a.priority?.toLowerCase() || 'normal';
+        const bPriority = b.priority?.toLowerCase() || 'normal';
+        return priorityOrder[aPriority] - priorityOrder[bPriority];
       case 'title':
         return a.title.localeCompare(b.title);
       default:
@@ -99,19 +101,19 @@ export function useTicketView(tickets: Ticket[] = []) {
             id: 'high',
             title: 'High',
             color: 'bg-red-500',
-            tickets: sortedTickets.filter(t => t.priority.toLowerCase() === 'high'),
+            tickets: sortedTickets.filter(t => t.priority?.toLowerCase() === 'high'),
           },
           {
             id: 'normal',
             title: 'Normal',
             color: 'bg-green-500',
-            tickets: sortedTickets.filter(t => t.priority.toLowerCase() === 'normal'),
+            tickets: sortedTickets.filter(t => t.priority?.toLowerCase() === 'normal'),
           },
           {
             id: 'low',
             title: 'Low',
             color: 'bg-blue-500',
-            tickets: sortedTickets.filter(t => t.priority.toLowerCase() === 'low'),
+            tickets: sortedTickets.filter(t => t.priority?.toLowerCase() === 'low'),
           },
         ];
       case 'type':

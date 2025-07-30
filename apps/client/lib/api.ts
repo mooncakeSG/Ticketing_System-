@@ -11,9 +11,11 @@ const api = axios.create({
 
 // Request interceptor to add auth token
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('auth_token');
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('auth_token');
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   return config;
 });
@@ -24,8 +26,10 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Handle unauthorized access
-      localStorage.removeItem('auth_token');
-      window.location.href = '/auth/login';
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/auth/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -178,7 +182,11 @@ export const authApi = {
     try {
       const response = await api.post('/auth/login', data);
       const { token, user } = response.data;
-      localStorage.setItem('auth_token', token);
+      
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('auth_token', token);
+      }
+      
       return { token, user };
     } catch (error) {
       console.error('Login failed:', error);
@@ -187,8 +195,10 @@ export const authApi = {
   },
 
   logout: () => {
-    localStorage.removeItem('auth_token');
-    window.location.href = '/auth/login';
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token');
+      window.location.href = '/auth/login';
+    }
   },
 
   getCurrentUser: async (): Promise<User> => {
@@ -201,11 +211,25 @@ export const authApi = {
     }
   },
 
+  updateProfile: async (data: { name: string; email: string }): Promise<User> => {
+    try {
+      const response = await api.put('/auth/profile', data);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to update profile:', error);
+      throw error;
+    }
+  },
+
   register: async (data: { email: string; password: string; name: string; admin: boolean }): Promise<AuthResponse> => {
     try {
-      const response = await api.post('/auth/user/register', data);
+      const response = await api.post('/auth/register', data);
       const { token, user } = response.data;
-      localStorage.setItem('auth_token', token);
+      
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('auth_token', token);
+      }
+      
       return { token, user };
     } catch (error) {
       console.error('Registration failed:', error);

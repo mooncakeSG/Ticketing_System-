@@ -15,7 +15,7 @@ import { Fragment, useEffect, useState } from "react";
 import useTranslation from "next-translate/useTranslation";
 import { useUser } from "../store/session";
 
-function classNames(...classes) {
+function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 

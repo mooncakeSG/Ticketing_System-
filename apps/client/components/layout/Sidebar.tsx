@@ -11,7 +11,8 @@ import {
   MessageSquare,
   TrendingUp,
   FileText,
-  Shield
+  Shield,
+  User
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -24,6 +25,7 @@ const navigation = [
   { name: 'Analytics', href: '/analytics', icon: TrendingUp },
   { name: 'Reports', href: '/reports', icon: FileText },
   { name: 'Admin', href: '/admin', icon: Shield },
+  { name: 'Profile', href: '/profile', icon: User },
   { name: 'Settings', href: '/settings', icon: Settings },
 ]
 

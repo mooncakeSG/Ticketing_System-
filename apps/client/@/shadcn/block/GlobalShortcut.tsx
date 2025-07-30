@@ -9,7 +9,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { useUser } from "../../../store/session";
 
-function classNames(...classes) {
+interface Ticket {
+  id: string;
+  title: string;
+  status: string;
+}
+
+function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -17,7 +23,7 @@ export default function GlobalShortcut() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
 
   const { user } = useUser();
 
@@ -77,7 +83,7 @@ export default function GlobalShortcut() {
     }
   }, [query]);
 
-  function handleRouting(id) {
+  function handleRouting(id: string) {
     setQuery("");
     setOpen(false);
     router.push(`/ticket/${id}`);

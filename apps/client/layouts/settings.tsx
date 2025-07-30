@@ -5,7 +5,11 @@ import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Settings({ children }) {
+interface SettingsProps {
+  children: React.ReactNode;
+}
+
+export default function Settings({ children }: SettingsProps) {
   const router = useRouter();
 
   const { t } = useTranslation("peppermint");

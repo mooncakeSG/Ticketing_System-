@@ -43,8 +43,9 @@ export default function TicketsList() {
     // Apply search filter
     if (searchTerm) {
       filtered = filtered.filter(ticket =>
-        ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        ticket.description.toLowerCase().includes(searchTerm.toLowerCase())
+        ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ticket.detail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ticket.id.toString().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -61,7 +62,9 @@ export default function TicketsList() {
     setFilteredTickets(filtered)
   }, [tickets, searchTerm, statusFilter, priorityFilter])
 
-  const openTickets = tickets.filter(ticket => ticket.status === 'open')
+  const openTickets = tickets.filter(ticket => 
+    ticket.status === 'needs_support' || ticket.status === 'in_progress'
+  )
   const closedTickets = tickets.filter(ticket => ticket.status === 'closed')
 
   if (loading) {

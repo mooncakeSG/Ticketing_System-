@@ -6,22 +6,30 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Loader from "react-spinners/ClipLoader";
 
-async function fetchNotebooks(token) {
-  const res = await fetch(`/api/v1/notebooks/all`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return res.json();
+async function fetchNotebooks(token: string) {
+  try {
+    const response = await fetch('/api/notebooks', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching notebooks:', error);
+    return [];
+  }
 }
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+function classNames(...classes: (string | undefined | null | false)[]): string {
+  return classes.filter(Boolean).join(' ');
 }
 
-export default function NoteBookLayout({ children }) {
+interface NoteBookLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function NoteBookLayout({ children }: NoteBookLayoutProps) {
   const router = useRouter();
   const token = getCookie("session");
 
@@ -61,7 +69,7 @@ export default function NoteBookLayout({ children }) {
                     </Link>
                   </div>
                   {notebooks &&
-                    notebooks.map((item, index) => (
+                    notebooks.map((item: any, index: number) => (
                       <Link
                         key={item.id}
                         href={`/notebook/${item.id}`}

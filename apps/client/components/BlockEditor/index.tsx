@@ -1,12 +1,22 @@
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
+import { useEffect, useState } from "react";
 
+interface BlockNoteEditorProps {
+  setIssue: (issue: any) => void;
+}
 
-import "@blocknote/core/fonts/inter.css";
-import "@blocknote/mantine/style.css";
-
-export default function BlockNoteEditor({ setIssue }) {
+export default function BlockNoteEditor({ setIssue }: BlockNoteEditorProps) {
+  const [isClient, setIsClient] = useState(false);
   const editor = useCreateBlockNote();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return <div className="h-64 bg-gray-100 animate-pulse rounded"></div>;
+  }
 
   return (
     <BlockNoteView

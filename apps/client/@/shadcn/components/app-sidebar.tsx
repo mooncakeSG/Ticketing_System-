@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-import { NavMain } from "@/shadcn/components/nav-main";
+import { NavMain } from "./nav-main";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +15,7 @@ import {
   SidebarHeader,
   SidebarRail,
   useSidebar,
-} from "@/shadcn/ui/sidebar";
+} from "../ui/sidebar";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

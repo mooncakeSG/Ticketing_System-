@@ -14,15 +14,17 @@ export type User = {
 
 export type Ticket = {
   id: string;
-  Number: number;
   title: string;
-  priority: string;
-  type: string;
   status: string;
-  createdAt: string;
+  description?: string;
+  created_at?: string;
+  Number?: number;
+  priority?: string;
+  type?: string;
+  createdAt?: string;
   team?: Team;
   assignedTo?: User;
-  isComplete: boolean;
+  isComplete?: boolean;
 };
 
 export type KanbanColumn = {
