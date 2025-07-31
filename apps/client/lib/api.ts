@@ -174,6 +174,48 @@ const mockTickets: Ticket[] = [
     locked: false,
     Number: 3,
   },
+  {
+    id: '4',
+    title: 'Database connection timeout',
+    detail: 'Users are experiencing slow response times and occasional database connection errors.',
+    status: 'needs_support',
+    priority: 'high',
+    type: 'bug',
+    createdAt: '2024-01-12T08:45:00Z',
+    updatedAt: '2024-01-12T15:30:00Z',
+    isComplete: false,
+    hidden: false,
+    locked: false,
+    Number: 4,
+  },
+  {
+    id: '5',
+    title: 'Email notifications not working',
+    detail: 'Users are not receiving email notifications for ticket updates and comments.',
+    status: 'in_progress',
+    priority: 'medium',
+    type: 'support',
+    createdAt: '2024-01-11T14:20:00Z',
+    updatedAt: '2024-01-12T09:15:00Z',
+    isComplete: false,
+    hidden: false,
+    locked: false,
+    Number: 5,
+  },
+  {
+    id: '6',
+    title: 'Add dark mode feature',
+    detail: 'Users have requested a dark mode theme option for better accessibility.',
+    status: 'closed',
+    priority: 'low',
+    type: 'feature',
+    createdAt: '2024-01-10T11:30:00Z',
+    updatedAt: '2024-01-11T16:45:00Z',
+    isComplete: true,
+    hidden: false,
+    locked: false,
+    Number: 6,
+  },
 ];
 
 // Authentication API
@@ -244,7 +286,15 @@ export const ticketApi = {
   getTickets: async (): Promise<Ticket[]> => {
     try {
       const response = await api.get('/ticket');
-      return response.data;
+      // Handle both array and object responses
+      if (Array.isArray(response.data)) {
+        return response.data;
+      } else if (response.data && Array.isArray(response.data.tickets)) {
+        return response.data.tickets;
+      } else {
+        console.log('API not available, using mock data');
+        return mockTickets;
+      }
     } catch (error) {
       console.log('API not available, using mock data');
       return mockTickets;

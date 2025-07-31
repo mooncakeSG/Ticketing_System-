@@ -2,7 +2,7 @@ import { getCookie } from "cookies-next";
 import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   useFilters,
   useGlobalFilter,
@@ -206,10 +206,10 @@ function Table({ columns, data }: any) {
 }
 
 export default function AdminTicketLayout() {
-  const { data, status, refetch } = useQuery(
-    "fetchallTickets",
-    fetchALLTIckets
-  );
+  const { data, status, refetch } = useQuery({
+    queryKey: ["fetchallTickets"],
+    queryFn: fetchALLTIckets
+  });
 
   const router = useRouter();
 

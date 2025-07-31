@@ -19,7 +19,7 @@ export default function BlockNoteEditor({ setIssue }: BlockNoteEditorProps) {
   }
 
   return (
-    <BlockNoteView
+          <BlockNoteView
       //@ts-ignore
       editor={editor}
       sideMenu={false}

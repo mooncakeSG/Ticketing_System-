@@ -31,7 +31,7 @@ import {
 } from "../ui/command";
 import { getCookie } from "cookies-next";
 import { useEffect, useMemo, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../../../store/session";
 import { useTicketActions } from "../hooks/useTicketActions";
 import { Ticket } from "../types/tickets";
@@ -55,9 +55,9 @@ export function CommandMenu() {
     setOpen(false);
   }, [pathname]);
 
-  const { data: ticketsData, refetch } = useQuery(
-    "tickets",
-    async () => {
+  const { data: ticketsData, refetch } = useQuery({
+    queryKey: ["tickets"],
+    queryFn: async () => {
       const response = await fetch("/api/v1/tickets/all", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,14 +66,12 @@ export function CommandMenu() {
       const data = await response.json();
       return data.tickets;
     },
-    {
-      enabled: open, // Only fetch when command menu is open
-    }
-  );
+    enabled: open, // Only fetch when command menu is open
+  });
 
-  const { data: usersData } = useQuery(
-    "users",
-    async () => {
+  const { data: usersData } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
       const response = await fetch("/api/v1/users/all", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -82,10 +80,8 @@ export function CommandMenu() {
       const data = await response.json();
       return data.users;
     },
-    {
-      enabled: open, // Only fetch when command menu is open
-    }
-  );
+    enabled: open, // Only fetch when command menu is open
+  });
 
   const {
     updateTicketStatus,

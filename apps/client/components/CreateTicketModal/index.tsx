@@ -4,7 +4,7 @@ import { ChevronUpDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getCookie } from "cookies-next";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 import { useUser } from "../../store/session";
 
 import { toast } from "@/shadcn/hooks/use-toast";
@@ -79,6 +79,50 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
   // Add validation state
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  
+  // Focus management
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const titleInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (keypress) {
+      setOpen(true);
+      setKeyPressDown(false);
+    }
+  }, [keypress, setKeyPressDown]);
+
+  useEffect(() => {
+    if (open) {
+      // Focus the close button first, then the title input
+      setTimeout(() => {
+        closeButtonRef.current?.focus();
+        setTimeout(() => {
+          titleInputRef.current?.focus();
+        }, 100);
+      }, 100);
+    }
+  }, [open]);
+
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && open) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("keydown", handleEscape);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
 
   const fetchClients = async (): Promise<void> => {
     try {
@@ -195,30 +239,16 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
     }
   }
 
-  function checkPress(): void {
-    if (keypress) {
-      setOpen(true);
-      setKeyPressDown(false);
-    }
-  }
-
-  useEffect(() => {
-    checkPress();
-  }, [keypress]);
-
-  useEffect(() => {
-    if (open) {
-      const loadFlags = (): void => {
-        fetchClients();
-        fetchUsers();
-      };
-      loadFlags();
-    }
-  }, [open]);
-
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={setOpen}>
+      <Dialog 
+        as="div" 
+        className="relative z-50" 
+        onClose={setOpen}
+        initialFocus={titleInputRef}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -228,7 +258,10 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div 
+            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
+            aria-hidden="true"
+          />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -242,15 +275,25 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+              <Dialog.Panel 
+                className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+                ref={modalRef}
+                role="dialog"
+                aria-modal="true"
+              >
                 <div className="flex flex-row w-full align-middle">
-                  <span className="text-md pb-2 font-semibold text-sm">
+                  <Dialog.Title 
+                    as="h2" 
+                    className="text-md pb-2 font-semibold text-sm"
+                    id="modal-title"
+                  >
                     New Issue
-                  </span>
+                  </Dialog.Title>
 
                   <button
+                    ref={closeButtonRef}
                     type="button"
-                    className="ml-auto mb-1.5 text-foreground font-bold text-xs rounded-md hover:text-primary outline-none"
+                    className="ml-auto mb-1.5 text-foreground font-bold text-xs rounded-md hover:text-primary outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                     onClick={() => setOpen(false)}
                     data-testid="close-modal-button"
                     aria-label="Close modal"
@@ -260,9 +303,17 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                   </button>
                 </div>
                 
+                <div id="modal-description" className="sr-only">
+                  Create a new ticket with title, description, priority, status, assignee, and client information.
+                </div>
+                
                 {/* Validation Errors Display */}
                 {Object.keys(errors).length > 0 && (
-                  <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-md">
+                  <div 
+                    className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-md"
+                    role="alert"
+                    aria-live="polite"
+                  >
                     <div className="text-red-400 text-sm font-medium mb-2">
                       Please fix the following errors:
                     </div>
@@ -276,15 +327,14 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                 
                 <div className="space-y-4">
                   <div className="">
-                    <label htmlFor="ticket-title" className="block text-sm font-medium text-foreground mb-1">
-                      Title *
+                    <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1">
+                      Title <span className="text-red-500" aria-label="required">*</span>
                     </label>
                     <input
+                      ref={titleInputRef}
                       type="text"
-                      id="ticket-title"
+                      id="title"
                       name="title"
-                      placeholder="Issue title"
-                      maxLength={64}
                       value={title}
                       onChange={(e) => {
                         setTitle(e.target.value);
@@ -292,53 +342,51 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                           setErrors(prev => ({ ...prev, title: "" }));
                         }
                       }}
-                      className={`w-full pl-0 pr-0 pt-0 text-md text-foreground bg-background border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none ${
-                        errors.title ? "border-red-500" : ""
-                      }`}
-                      data-testid="ticket-title-input"
+                      className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                      placeholder="Enter ticket title"
                       aria-describedby={errors.title ? "title-error" : undefined}
+                      aria-invalid={!!errors.title}
+                      required
                     />
                     {errors.title && (
-                      <div id="title-error" className="text-red-400 text-xs mt-1">
+                      <div id="title-error" className="text-red-500 text-sm mt-1" role="alert">
                         {errors.title}
                       </div>
                     )}
                   </div>
 
                   <div className="">
-                    <div>
-                      <label htmlFor="ticket-name" className="block text-sm font-medium text-foreground mb-1">
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="ticket-name"
-                        placeholder={t("ticket_name_here")}
-                        name="name"
-                        value={name}
-                        onChange={(e) => {
-                          setName(e.target.value);
-                          if (errors.name) {
-                            setErrors(prev => ({ ...prev, name: "" }));
-                          }
-                        }}
-                        className={`w-full pl-0 pr-0 text-foreground bg-background sm:text-sm border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none ${
-                          errors.name ? "border-red-500" : ""
-                        }`}
-                        data-testid="ticket-name-input"
-                        aria-describedby={errors.name ? "name-error" : undefined}
-                      />
-                      {errors.name && (
-                        <div id="name-error" className="text-red-400 text-xs mt-1">
-                          {errors.name}
-                        </div>
-                      )}
-                    </div>
+                    <label htmlFor="ticket-name" className="block text-sm font-medium text-foreground mb-1">
+                      Name <span className="text-red-500" aria-label="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="ticket-name"
+                      placeholder={t("ticket_name_here")}
+                      name="name"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (errors.name) {
+                          setErrors(prev => ({ ...prev, name: "" }));
+                        }
+                      }}
+                      className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                      data-testid="ticket-name-input"
+                      aria-describedby={errors.name ? "name-error" : undefined}
+                      aria-invalid={!!errors.name}
+                      required
+                    />
+                    {errors.name && (
+                      <div id="name-error" className="text-red-500 text-sm mt-1" role="alert">
+                        {errors.name}
+                      </div>
+                    )}
                   </div>
 
                   <div>
                     <label htmlFor="ticket-email" className="block text-sm font-medium text-foreground mb-1">
-                      Email *
+                      Email <span className="text-red-500" aria-label="required">*</span>
                     </label>
                     <input
                       type="email"
@@ -352,14 +400,14 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                           setErrors(prev => ({ ...prev, email: "" }));
                         }
                       }}
-                      className={`w-full pl-0 pr-0 text-foreground bg-background sm:text-sm border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none ${
-                        errors.email ? "border-red-500" : ""
-                      }`}
+                      className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       data-testid="ticket-email-input"
                       aria-describedby={errors.email ? "email-error" : undefined}
+                      aria-invalid={!!errors.email}
+                      required
                     />
                     {errors.email && (
-                      <div id="email-error" className="text-red-400 text-xs mt-1">
+                      <div id="email-error" className="text-red-500 text-sm mt-1" role="alert">
                         {errors.email}
                       </div>
                     )}
@@ -367,7 +415,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
 
                   <div>
                     <label htmlFor="ticket-description" className="block text-sm font-medium text-foreground mb-1">
-                      Description *
+                      Description <span className="text-red-500" aria-label="required">*</span>
                     </label>
                     <textarea
                       id="ticket-description"
@@ -381,14 +429,14 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                           setErrors(prev => ({ ...prev, issue: "" }));
                         }
                       }}
-                      className={`w-full pl-0 pr-0 text-foreground bg-background sm:text-sm border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none resize-none ${
-                        errors.issue ? "border-red-500" : ""
-                      }`}
+                      className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 resize-none"
                       data-testid="ticket-description-input"
                       aria-describedby={errors.issue ? "issue-error" : undefined}
+                      aria-invalid={!!errors.issue}
+                      required
                     />
                     {errors.issue && (
-                      <div id="issue-error" className="text-red-400 text-xs mt-1">
+                      <div id="issue-error" className="text-red-500 text-sm mt-1" role="alert">
                         {errors.issue}
                       </div>
                     )}
@@ -403,14 +451,18 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                       name="priority"
                       value={priority}
                       onChange={(e) => setPriority(e.target.value)}
-                      className="w-full pl-0 pr-0 text-foreground bg-background sm:text-sm border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none"
+                      className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       data-testid="ticket-priority-select"
+                      aria-describedby="priority-help"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
                       <option value="urgent">Urgent</option>
                     </select>
+                    <div id="priority-help" className="sr-only">
+                      Select the priority level for this ticket
+                    </div>
                   </div>
 
                   <div>
@@ -419,7 +471,10 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                     </label>
                     <Listbox value={selected} onChange={setSelected}>
                       <div className="relative mt-1">
-                        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-background py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                        <Listbox.Button 
+                          className="relative w-full cursor-default rounded-lg bg-background py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:text-sm border border-input"
+                          aria-label="Select ticket type"
+                        >
                           <span className="block truncate">{selected.name}</span>
                           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon
@@ -469,24 +524,63 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                     </Listbox>
                   </div>
 
-                  <div className="flex justify-end space-x-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setOpen(false)}
-                      className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      data-testid="cancel-ticket-button"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="button"
-                      onClick={createTicket}
-                      disabled={isSubmitting}
-                      className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                      data-testid="create-ticket-submit-button"
-                      aria-label={isSubmitting ? "Creating ticket..." : "Create ticket"}
-                    >
-                      {isSubmitting ? (
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="assignee" className="block text-sm font-medium text-foreground mb-1">
+                        Assignee
+                      </label>
+                      <input
+                        type="text"
+                        id="assignee"
+                        name="assignee"
+                        value={engineer?.name || ""}
+                        onChange={(e) => {
+                          const foundUser = users.find(user => user.name === e.target.value);
+                          setEngineer(foundUser || null);
+                        }}
+                        className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        placeholder="Enter assignee"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="client" className="block text-sm font-medium text-foreground mb-1">
+                        Client
+                      </label>
+                      <input
+                        type="text"
+                        id="client"
+                        name="client"
+                        value={company?.name || ""}
+                        onChange={(e) => {
+                          const foundClient = options.find(client => client.name === e.target.value);
+                          setCompany(foundClient || null);
+                        }}
+                        className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        placeholder="Enter client"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    className="px-4 py-2 text-sm font-medium text-foreground bg-secondary hover:bg-secondary/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    data-testid="cancel-ticket-button"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={createTicket}
+                    disabled={isSubmitting}
+                    className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-testid="create-ticket-submit-button"
+                    aria-label={isSubmitting ? "Creating ticket..." : "Create ticket"}
+                  >
+                    {isSubmitting ? (
                         <div className="flex items-center space-x-2">
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                           <span>Creating...</span>
@@ -494,9 +588,14 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }: CreateT
                       ) : (
                         "Create Ticket"
                       )}
-                    </button>
-                  </div>
+                  </button>
                 </div>
+                
+                {isSubmitting && (
+                  <div id="submitting-status" className="sr-only" aria-live="polite">
+                    Creating ticket, please wait...
+                  </div>
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>

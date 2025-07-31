@@ -21,10 +21,17 @@ export default function Dashboard() {
       try {
         setLoading(true)
         const data = await ticketApi.getTickets()
-        setTickets(data)
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setTickets(data)
+        } else {
+          console.error('getTickets returned non-array data:', data)
+          setTickets([])
+        }
       } catch (err) {
         setError('Failed to load tickets')
         console.error('Error fetching tickets:', err)
+        setTickets([])
       } finally {
         setLoading(false)
       }
@@ -33,14 +40,16 @@ export default function Dashboard() {
     fetchTickets()
   }, [])
 
-  const openTickets = tickets.filter(ticket => ticket.status === 'needs_support' || ticket.status === 'in_progress')
-  const closedTickets = tickets.filter(ticket => ticket.status === 'resolved' || ticket.status === 'closed')
-  const highPriorityTickets = tickets.filter(ticket => ticket.priority === 'high')
+  // Only calculate stats if tickets are loaded and is an array
+  const ticketsArray = Array.isArray(tickets) ? tickets : []
+  const openTickets = ticketsArray.filter(ticket => ticket.status === 'needs_support' || ticket.status === 'in_progress')
+  const closedTickets = ticketsArray.filter(ticket => ticket.status === 'resolved' || ticket.status === 'closed')
+  const highPriorityTickets = ticketsArray.filter(ticket => ticket.priority === 'high')
 
   const stats = [
     {
       title: 'Total Tickets',
-      value: tickets.length,
+      value: ticketsArray.length,
       icon: TicketIcon,
       color: 'text-blue-500',
     },
@@ -208,7 +217,7 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          {tickets.length === 0 ? (
+          {ticketsArray.length === 0 ? (
             <Card className="bg-gray-900/50 border-gray-800">
               <CardContent className="p-12 text-center">
                 <TicketIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
@@ -224,7 +233,7 @@ export default function Dashboard() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tickets.slice(0, 6).map((ticket, index) => (
+              {ticketsArray.slice(0, 6).map((ticket, index) => (
                 <motion.div
                   key={ticket.id}
                   initial={{ opacity: 0, y: 20 }}

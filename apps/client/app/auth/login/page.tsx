@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Eye, EyeOff, LogIn, AlertCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Eye, EyeOff, LogIn, AlertCircle, Wifi, WifiOff } from 'lucide-react'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,7 +14,26 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [backendStatus, setBackendStatus] = useState<'checking' | 'online' | 'offline'>('checking')
   const router = useRouter()
+
+  // Check backend status on component mount
+  useEffect(() => {
+    const checkBackendStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:5003/api/v1/health')
+        if (response.ok) {
+          setBackendStatus('online')
+        } else {
+          setBackendStatus('offline')
+        }
+      } catch (error) {
+        setBackendStatus('offline')
+      }
+    }
+
+    checkBackendStatus()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,7 +44,17 @@ export default function Login() {
       await authApi.login({ email, password })
       router.push('/')
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.')
+      console.error('Login error:', err)
+      
+      if (err.response?.status === 401) {
+        setError('Invalid email or password. Please check your credentials and try again.')
+      } else if (err.response?.status === 500) {
+        setError('Server error. Please try again later or contact support.')
+      } else if (err.code === 'NETWORK_ERROR' || !err.response) {
+        setError('Unable to connect to the server. Please check your internet connection and ensure the backend is running.')
+      } else {
+        setError(err.response?.data?.message || 'Login failed. Please check your credentials and try again.')
+      }
     } finally {
       setLoading(false)
     }
@@ -38,12 +67,22 @@ export default function Login() {
     try {
       // Try demo credentials
       await authApi.login({ 
-        email: 'admin@mintdesk.com', 
+        email: 'admin@peppermint.com', 
         password: 'admin123' 
       })
       router.push('/')
     } catch (err: any) {
-      setError('Demo login failed. Please check if the backend is running.')
+      console.error('Demo login error:', err)
+      
+      if (err.response?.status === 401) {
+        setError('Demo login failed: Invalid credentials. Please contact support.')
+      } else if (err.response?.status === 500) {
+        setError('Demo login failed: Server error. Please try again later.')
+      } else if (err.code === 'NETWORK_ERROR' || !err.response) {
+        setError('Demo login failed: Unable to connect to the server. Please ensure the backend is running on http://localhost:5003')
+      } else {
+        setError('Demo login failed. Please check if the backend is running and try again.')
+      }
     } finally {
       setLoading(false)
     }
@@ -66,6 +105,29 @@ export default function Login() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Backend Status Indicator */}
+              {backendStatus !== 'checking' && (
+                <div className={`flex items-center space-x-2 p-3 rounded-lg ${
+                  backendStatus === 'online' 
+                    ? 'bg-green-500/10 border border-green-500/20' 
+                    : 'bg-yellow-500/10 border border-yellow-500/20'
+                }`}>
+                  {backendStatus === 'online' ? (
+                    <Wifi className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <WifiOff className="h-4 w-4 text-yellow-500" />
+                  )}
+                  <span className={`text-sm ${
+                    backendStatus === 'online' ? 'text-green-400' : 'text-yellow-400'
+                  }`}>
+                    {backendStatus === 'online' 
+                      ? 'Backend server is online' 
+                      : 'Backend server is offline - login may not work'
+                    }
+                  </span>
+                </div>
+              )}
+
               {error && (
                 <div className="flex items-center space-x-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
                   <AlertCircle className="h-4 w-4 text-red-500" />
@@ -147,7 +209,7 @@ export default function Login() {
                 Demo Credentials:
               </p>
               <p className="text-gray-500 text-xs mt-1">
-                Email: admin@mintdesk.com
+                Email: admin@peppermint.com
               </p>
               <p className="text-gray-500 text-xs">
                 Password: admin123

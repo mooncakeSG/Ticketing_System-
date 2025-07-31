@@ -32,8 +32,9 @@ def main():
     # Start frontend
     print("🎨 Starting Next.js frontend...")
     frontend_process = run_command(
-        ["npm", "run", "dev"],
-        cwd=project_root / "apps" / "client"
+        "npm run dev",
+        cwd=project_root / "apps" / "client",
+        shell=True
     )
     
     print("\n✅ Development servers started!")

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/@/shadcn/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -7,14 +7,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/@/shadcn/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/@/shadcn/ui/popover";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Coffee } from "lucide-react";
 
 type Status = {
   value: string;
@@ -145,11 +145,11 @@ export function UserCombo({
                   <CommandItem
                     className=" hover:cursor-pointer"
                     key={val.value}
-                    value={val}
+                    value={val.name}
                     onSelect={(selected) => {
                       const user = value.find((k: User) => k.name === selected);
-                      setSelectedStatus(user);
-                      update(user);
+                      setSelectedStatus(user || null);
+                      update(user || null);
                       setOpen(false);
                     }}
                   >
@@ -231,15 +231,15 @@ export function IconCombo({
                   <CommandItem
                     className=" hover:cursor-pointer"
                     key={val.value}
-                    value={val}
+                    value={val.value}
                     onSelect={(selected) => {
-                      const user = value.find((k: Status) => k.name === selected);
-                      setSelectedStatus(user);
-                      update(user);
+                      const status = value.find((k: Status) => k.value === selected);
+                      setSelectedStatus(status || null);
+                      update(status || null);
                       setOpen(false);
                     }}
                   >
-                    <span>{val.name}</span>
+                    <span>{val.label}</span>
                   </CommandItem>
                 ))}
               </CommandGroup>
@@ -330,11 +330,11 @@ export function ClientCombo({
                   <CommandItem
                     className=" hover:cursor-pointer"
                     key={val.value}
-                    value={val}
+                    value={val.name}
                     onSelect={(selected) => {
-                      const user = value.find((k: Client) => k.name === selected);
-                      setSelectedStatus(user);
-                      update(user);
+                      const client = value.find((k: Client) => k.name === selected);
+                      setSelectedStatus(client || null);
+                      update(client || null);
                       setOpen(false);
                     }}
                   >

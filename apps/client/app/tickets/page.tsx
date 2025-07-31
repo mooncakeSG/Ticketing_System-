@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { TicketCard } from '@/components/TicketCard'
@@ -10,7 +11,9 @@ import { ticketApi, Ticket } from '@/lib/api'
 import { Plus, Filter, Search } from 'lucide-react'
 import Link from 'next/link'
 
-export default function TicketsList() {
+function TicketsListContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [tickets, setTickets] = useState<Ticket[]>([])
   const [filteredTickets, setFilteredTickets] = useState<Ticket[]>([])
   const [loading, setLoading] = useState(true)
@@ -19,16 +22,33 @@ export default function TicketsList() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'open' | 'closed'>('all')
   const [priorityFilter, setPriorityFilter] = useState<'all' | 'low' | 'medium' | 'high'>('all')
 
+  // Handle URL search parameters
+  useEffect(() => {
+    const searchFromUrl = searchParams.get('search')
+    if (searchFromUrl) {
+      setSearchTerm(searchFromUrl)
+    }
+  }, [searchParams])
+
   useEffect(() => {
     const fetchTickets = async () => {
       try {
         setLoading(true)
         const data = await ticketApi.getTickets()
-        setTickets(data)
-        setFilteredTickets(data)
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setTickets(data)
+          setFilteredTickets(data)
+        } else {
+          console.error('getTickets returned non-array data:', data)
+          setTickets([])
+          setFilteredTickets([])
+        }
       } catch (err) {
         setError('Failed to load tickets')
         console.error('Error fetching tickets:', err)
+        setTickets([])
+        setFilteredTickets([])
       } finally {
         setLoading(false)
       }
@@ -38,7 +58,9 @@ export default function TicketsList() {
   }, [])
 
   useEffect(() => {
-    let filtered = tickets
+    // Ensure tickets is an array before filtering
+    const ticketsArray = Array.isArray(tickets) ? tickets : []
+    let filtered = ticketsArray
 
     // Apply search filter
     if (searchTerm) {
@@ -62,10 +84,12 @@ export default function TicketsList() {
     setFilteredTickets(filtered)
   }, [tickets, searchTerm, statusFilter, priorityFilter])
 
-  const openTickets = tickets.filter(ticket => 
+  // Only calculate stats if tickets are loaded and is an array
+  const ticketsArray = Array.isArray(tickets) ? tickets : []
+  const openTickets = ticketsArray.filter(ticket => 
     ticket.status === 'needs_support' || ticket.status === 'in_progress'
   )
-  const closedTickets = tickets.filter(ticket => ticket.status === 'closed')
+  const closedTickets = ticketsArray.filter(ticket => ticket.status === 'closed')
 
   if (loading) {
     return (
@@ -100,7 +124,7 @@ export default function TicketsList() {
           <div>
             <h1 className="text-3xl font-bold text-white">All Tickets</h1>
             <p className="text-gray-400 mt-1">
-              {filteredTickets.length} of {tickets.length} tickets
+              {filteredTickets.length} of {ticketsArray.length} tickets
             </p>
           </div>
           <Link href="/create">
@@ -117,7 +141,7 @@ export default function TicketsList() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-400">Total Tickets</p>
-                <p className="text-2xl font-bold text-white">{tickets.length}</p>
+                <p className="text-2xl font-bold text-white">{ticketsArray.length}</p>
               </div>
               <Badge variant="default" className="text-xs">
                 All
@@ -232,5 +256,19 @@ export default function TicketsList() {
         )}
       </div>
     </MainLayout>
+  )
+}
+
+export default function TicketsList() {
+  return (
+    <Suspense fallback={
+      <MainLayout>
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        </div>
+      </MainLayout>
+    }>
+      <TicketsListContent />
+    </Suspense>
   )
 } 

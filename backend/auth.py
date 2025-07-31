@@ -7,13 +7,15 @@ import jwt
 
 def create_token(user):
     """Create a JWT token for a user"""
-    token_data = {
-        'user_id': user.id,
-        'email': user.email,
-        'is_admin': user.is_admin,
-        'role': user.role
-    }
-    return create_access_token(identity=token_data)
+    # Store user ID as the identity (string) and user data in additional claims
+    return create_access_token(
+        identity=user.id,
+        additional_claims={
+            'email': user.email,
+            'is_admin': user.is_admin,
+            'role': user.role
+        }
+    )
 
 def verify_token(token):
     """Verify a JWT token and return user data"""
@@ -27,15 +29,21 @@ def get_current_user():
     """Get the current user from the JWT token"""
     try:
         verify_jwt_in_request()
-        user_data = get_jwt_identity()
-        user = User.query.get(user_data['user_id'])
-        if user:
-            # Update last login
-            user.last_login = datetime.utcnow()
-            from models import db
-            db.session.commit()
-        return user
-    except Exception:
+        user_id = get_jwt_identity()
+        print(f"JWT Identity (user_id): {user_id}")
+        
+        if user_id:
+            user = User.query.get(user_id)
+            print(f"Found user: {user}")
+            if user:
+                # Update last login
+                user.last_login = datetime.utcnow()
+                from models import db
+                db.session.commit()
+            return user
+        return None
+    except Exception as e:
+        print(f"Error getting current user: {e}")
         return None
 
 def login_required(f):

@@ -94,9 +94,4 @@
   overflow: hidden;
 }
 
-/* Fix for print color adjust */
-@media print {
-  * {
-    print-color-adjust: exact;
-  }
-} 
+ 

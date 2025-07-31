@@ -1,10 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Ticket } from '@/lib/api'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Clock, User, MessageSquare, AlertCircle, CheckCircle, XCircle } from 'lucide-react'
+import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 
 interface TicketCardProps {
