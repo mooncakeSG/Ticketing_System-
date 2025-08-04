@@ -86,32 +86,33 @@ export const waitForElementToBeRemoved = (element: Element) =>
 
 // Form testing utilities
 export const fillForm = async (formData: Record<string, string>) => {
-  const { user } = await import('@testing-library/user-event')
-  const userEvent = user.setup()
+  const userEvent = await import('@testing-library/user-event')
+  const user = userEvent.default
   
   for (const [name, value] of Object.entries(formData)) {
     const element = document.querySelector(`[name="${name}"]`) as HTMLInputElement
     if (element) {
-      await userEvent.type(element, value)
+      await user.type(element, value)
     }
   }
 }
 
 export const submitForm = async () => {
-  const { user } = await import('@testing-library/user-event')
-  const userEvent = user.setup()
+  const userEvent = await import('@testing-library/user-event')
+  const user = userEvent.default
   
   const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement
   if (submitButton) {
-    await userEvent.click(submitButton)
+    await user.click(submitButton)
   }
 }
 
 // Accessibility testing utilities
 export const checkA11y = async (container: HTMLElement) => {
-  const { axe, toHaveNoViolations } = await import('jest-axe')
-  const results = await axe(container)
-  expect(results).toHaveNoViolations()
+  const axe = await import('jest-axe')
+  const results = await axe.default(container)
+  // Note: toHaveNoViolations matcher should be set up in jest.setup.js
+  expect(results.violations).toHaveLength(0)
 }
 
 // Mock router utilities
