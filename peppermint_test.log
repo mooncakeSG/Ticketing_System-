@@ -7168,3 +7168,985 @@ Stacktrace:
 2025-07-31 13:42:13,455 - ERROR - [FAIL] Test suite FAILED
 2025-07-31 13:42:13,456 - INFO - ==================================================
 2025-07-31 13:42:15,997 - INFO - WebDriver closed
+2025-08-04 14:52:56,901 - INFO - Starting Peppermint Ticketing System Test Suite
+2025-08-04 14:52:56,901 - INFO - Frontend URL: http://localhost:3000
+2025-08-04 14:52:56,901 - INFO - Backend URL: http://localhost:5003
+2025-08-04 14:53:02,813 - INFO - Chrome WebDriver setup successful
+2025-08-04 14:53:02,813 - INFO - Starting frontend navigation tests...
+2025-08-04 14:53:02,814 - INFO - Starting authentication process...
+2025-08-04 14:53:04,558 - INFO - Page loaded successfully
+2025-08-04 14:53:15,791 - ERROR - Authentication failed: Message: 
+
+2025-08-04 14:53:15,791 - ERROR - Authentication failed. Cannot proceed with frontend tests.
+2025-08-04 14:53:15,791 - INFO - Starting form submission tests...
+2025-08-04 14:53:15,791 - INFO - Testing ticket creation form...
+2025-08-04 14:53:25,319 - INFO - Page loaded successfully
+2025-08-04 14:53:25,320 - INFO - Testing empty form submission...
+2025-08-04 14:53:26,070 - ERROR - Error testing empty form submission: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf4811]
+	(No symbol) [0x0x7ff66bb91c0b]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:53:26,239 - INFO - Screenshot saved: test_screenshots/empty_form_error_20250804_145326.png
+2025-08-04 14:53:26,245 - INFO - Testing valid ticket submission...
+2025-08-04 14:53:28,778 - ERROR - Error testing valid ticket submission: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb3fcb7]
+	(No symbol) [0x0x7ff66bb406bc]
+	(No symbol) [0x0x7ff66bb93af7]
+	(No symbol) [0x0x7ff66bb6864f]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:53:28,949 - INFO - Screenshot saved: test_screenshots/ticket_submission_error_20250804_145328.png
+2025-08-04 14:53:28,952 - INFO - Testing file upload...
+2025-08-04 14:53:28,982 - INFO - No file upload fields found
+2025-08-04 14:53:28,982 - INFO - Testing user creation form...
+2025-08-04 14:53:35,616 - INFO - Page loaded successfully
+2025-08-04 14:53:37,517 - ERROR - Error testing user creation form: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb3fcb7]
+	(No symbol) [0x0x7ff66bb406bc]
+	(No symbol) [0x0x7ff66bb93af7]
+	(No symbol) [0x0x7ff66bb6864f]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:53:37,530 - INFO - Testing profile update form...
+2025-08-04 14:53:45,115 - INFO - Page loaded successfully
+2025-08-04 14:53:45,378 - ERROR - Error testing profile update form: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb3fcb7]
+	(No symbol) [0x0x7ff66bb406bc]
+	(No symbol) [0x0x7ff66bb93af7]
+	(No symbol) [0x0x7ff66bb6864f]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:53:45,443 - INFO - Starting direct backend API tests...
+2025-08-04 14:53:49,638 - ERROR - [FAIL] Backend health check error: HTTPConnectionPool(host='localhost', port=5003): Max retries exceeded with url: /api/v1/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020D47178250>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-08-04 14:53:53,738 - ERROR - [FAIL] Get Tickets error: HTTPConnectionPool(host='localhost', port=5003): Max retries exceeded with url: /api/v1/ticket (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020D471794D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-08-04 14:53:57,802 - ERROR - [FAIL] Get Users error: HTTPConnectionPool(host='localhost', port=5003): Max retries exceeded with url: /api/v1/users (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020D4717A890>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-08-04 14:54:01,879 - ERROR - [FAIL] Get Current User error: HTTPConnectionPool(host='localhost', port=5003): Max retries exceeded with url: /api/v1/auth/me (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020D47179490>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-08-04 14:54:01,879 - INFO - 
+==================================================
+2025-08-04 14:54:01,879 - INFO - TEST REPORT SUMMARY
+2025-08-04 14:54:01,879 - INFO - ==================================================
+2025-08-04 14:54:01,879 - INFO - Frontend Tests: 0/0 successful
+2025-08-04 14:54:01,879 - INFO - Backend Tests: 0/0 successful
+2025-08-04 14:54:01,879 - INFO - Form Tests: 0/0 successful
+2025-08-04 14:54:01,879 - INFO - Overall Success Rate: 0.0%
+2025-08-04 14:54:01,879 - ERROR - [FAIL] Test suite FAILED
+2025-08-04 14:54:01,879 - INFO - ==================================================
+2025-08-04 14:54:04,529 - INFO - WebDriver closed
+2025-08-04 14:59:12,013 - INFO - Starting Peppermint Ticketing System Test Suite
+2025-08-04 14:59:12,026 - INFO - Frontend URL: http://localhost:3000
+2025-08-04 14:59:12,029 - INFO - Backend URL: http://localhost:5003
+2025-08-04 14:59:14,673 - INFO - Chrome WebDriver setup successful
+2025-08-04 14:59:14,674 - INFO - Starting frontend navigation tests...
+2025-08-04 14:59:14,675 - INFO - Starting authentication process...
+2025-08-04 14:59:16,489 - INFO - Page loaded successfully
+2025-08-04 14:59:18,930 - INFO - Authentication successful!
+2025-08-04 14:59:18,931 - INFO - Testing sidebar navigation...
+2025-08-04 14:59:20,677 - INFO - Page loaded successfully
+2025-08-04 14:59:22,269 - INFO - Found 18 visible navigation elements in sidebar
+2025-08-04 14:59:22,309 - INFO - Testing sidebar navigation: Admin
+System administration -> http://localhost:3000/admin
+2025-08-04 14:59:23,429 - INFO - Successfully clicked sidebar nav: Admin
+System administration
+2025-08-04 14:59:26,534 - INFO - Sidebar nav Admin
+System administration did not cause navigation
+2025-08-04 14:59:26,599 - INFO - Testing GET /api/v1/health (triggered by: Sidebar: Admin
+System administration)
+2025-08-04 14:59:29,148 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 14:59:29,161 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 14:59:29,163 - INFO -    - status: healthy
+2025-08-04 14:59:29,165 - INFO - Testing GET /api/v1/ticket (triggered by: Sidebar: Admin
+System administration)
+2025-08-04 14:59:31,439 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 14:59:31,439 - INFO - Testing GET /api/v1/users (triggered by: Sidebar: Admin
+System administration)
+2025-08-04 14:59:33,645 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 14:59:33,645 - INFO - Testing GET /api/v1/auth/me (triggered by: Sidebar: Admin
+System administration)
+2025-08-04 14:59:35,665 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 14:59:35,685 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:35,810 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145935.png
+2025-08-04 14:59:35,825 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:35,949 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145935.png
+2025-08-04 14:59:35,949 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:36,067 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145935.png
+2025-08-04 14:59:36,082 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:36,200 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145936.png
+2025-08-04 14:59:36,216 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:36,334 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145936.png
+2025-08-04 14:59:36,334 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:36,467 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145936.png
+2025-08-04 14:59:36,486 - ERROR - Error testing sidebar nav Admin
+System administration: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:36,600 - INFO - Screenshot saved: test_screenshots/sidebar_nav_error_Admin
+System_administration_20250804_145936.png
+2025-08-04 14:59:38,138 - INFO - Page loaded successfully
+2025-08-04 14:59:38,138 - INFO - Testing page: /
+2025-08-04 14:59:39,333 - INFO - Page loaded successfully
+2025-08-04 14:59:39,909 - INFO - Found 2 visible buttons
+2025-08-04 14:59:40,026 - INFO - Testing button: Button_0 (ID: button_0)
+2025-08-04 14:59:41,258 - INFO - Successfully clicked button: Button_0
+2025-08-04 14:59:44,263 - INFO - Testing GET /api/v1/health (triggered by: Button_0)
+2025-08-04 14:59:46,329 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 14:59:46,329 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 14:59:46,329 - INFO -    - status: healthy
+2025-08-04 14:59:46,329 - INFO - Testing GET /api/v1/ticket (triggered by: Button_0)
+2025-08-04 14:59:48,399 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 14:59:48,399 - INFO - Testing GET /api/v1/users (triggered by: Button_0)
+2025-08-04 14:59:50,447 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 14:59:50,447 - INFO - Testing GET /api/v1/auth/me (triggered by: Button_0)
+2025-08-04 14:59:52,481 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 14:59:52,521 - ERROR - Error testing button Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 14:59:52,665 - INFO - Screenshot saved: test_screenshots/button_error_Unknown_Button_20250804_145952.png
+2025-08-04 14:59:52,665 - INFO - Testing page: /tickets
+2025-08-04 14:59:53,995 - INFO - Page loaded successfully
+2025-08-04 14:59:54,544 - INFO - Found 2 visible buttons
+2025-08-04 14:59:54,641 - INFO - Testing button: Button_0 (ID: button_0)
+2025-08-04 14:59:55,858 - INFO - Successfully clicked button: Button_0
+2025-08-04 14:59:58,875 - INFO - Testing GET /api/v1/health (triggered by: Button_0)
+2025-08-04 15:00:00,907 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:00:00,923 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:00:00,923 - INFO -    - status: healthy
+2025-08-04 15:00:00,923 - INFO - Testing GET /api/v1/ticket (triggered by: Button_0)
+2025-08-04 15:00:02,962 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:00:02,962 - INFO - Testing GET /api/v1/users (triggered by: Button_0)
+2025-08-04 15:00:05,015 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:00:05,015 - INFO - Testing GET /api/v1/auth/me (triggered by: Button_0)
+2025-08-04 15:00:07,072 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:00:07,121 - ERROR - Error testing button Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:00:07,252 - INFO - Screenshot saved: test_screenshots/button_error_Unknown_Button_20250804_150007.png
+2025-08-04 15:00:07,254 - INFO - Testing page: /users
+2025-08-04 15:00:20,632 - INFO - Page loaded successfully
+2025-08-04 15:00:22,661 - INFO - Found 25 visible buttons
+2025-08-04 15:00:22,672 - INFO - Testing button: View Profile (ID: button_0)
+2025-08-04 15:00:25,109 - INFO - Successfully clicked button: View Profile
+2025-08-04 15:00:28,651 - INFO - Testing GET /api/v1/health (triggered by: View Profile)
+2025-08-04 15:00:31,062 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:00:31,062 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:00:31,063 - INFO -    - status: healthy
+2025-08-04 15:00:31,064 - INFO - Testing GET /api/v1/ticket (triggered by: View Profile)
+2025-08-04 15:00:33,502 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:00:33,502 - INFO - Testing GET /api/v1/users (triggered by: View Profile)
+2025-08-04 15:00:35,816 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:00:35,816 - INFO - Testing GET /api/v1/auth/me (triggered by: View Profile)
+2025-08-04 15:00:37,881 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:00:37,918 - ERROR - Error testing button Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:00:38,034 - INFO - Screenshot saved: test_screenshots/button_error_Unknown_Button_20250804_150037.png
+2025-08-04 15:00:38,054 - ERROR - Error testing button Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:00:38,163 - INFO - Screenshot saved: test_screenshots/button_error_Unknown_Button_20250804_150038.png
+2025-08-04 15:00:38,163 - INFO - Testing page: /create
+2025-08-04 15:00:41,325 - INFO - Page loaded successfully
+2025-08-04 15:00:41,928 - INFO - Found 12 visible buttons
+2025-08-04 15:00:42,001 - INFO - Testing button: Demo User (ID: button_0)
+2025-08-04 15:00:43,206 - INFO - Successfully clicked button: Demo User
+2025-08-04 15:00:46,239 - INFO - Testing GET /api/v1/health (triggered by: Demo User)
+2025-08-04 15:00:48,311 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:00:48,311 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:00:48,311 - INFO -    - status: healthy
+2025-08-04 15:00:48,311 - INFO - Testing GET /api/v1/ticket (triggered by: Demo User)
+2025-08-04 15:00:50,329 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:00:50,329 - INFO - Testing GET /api/v1/users (triggered by: Demo User)
+2025-08-04 15:00:52,365 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:00:52,365 - INFO - Testing GET /api/v1/auth/me (triggered by: Demo User)
+2025-08-04 15:00:54,394 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:00:54,455 - INFO - Testing button: Open in picture-in-picture mode (ID: button_1)
+2025-08-04 15:00:55,875 - INFO - Successfully clicked button: Open in picture-in-picture mode
+2025-08-04 15:00:58,898 - INFO - Testing GET /api/v1/health (triggered by: Open in picture-in-picture mode)
+2025-08-04 15:01:00,937 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:01:00,937 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:01:00,937 - INFO -    - status: healthy
+2025-08-04 15:01:00,952 - INFO - Testing GET /api/v1/ticket (triggered by: Open in picture-in-picture mode)
+2025-08-04 15:01:03,005 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:01:03,020 - INFO - Testing GET /api/v1/users (triggered by: Open in picture-in-picture mode)
+2025-08-04 15:01:05,070 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:01:05,070 - INFO - Testing GET /api/v1/auth/me (triggered by: Open in picture-in-picture mode)
+2025-08-04 15:01:07,140 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:01:07,183 - ERROR - Error testing button Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:01:07,356 - INFO - Screenshot saved: test_screenshots/button_error_Unknown_Button_20250804_150107.png
+2025-08-04 15:01:07,356 - INFO - Testing page: /settings
+2025-08-04 15:01:12,426 - INFO - Page loaded successfully
+2025-08-04 15:01:13,051 - INFO - Found 6 visible buttons
+2025-08-04 15:01:13,082 - INFO - Testing button: On (ID: button_0)
+2025-08-04 15:01:14,296 - INFO - Successfully clicked button: On
+2025-08-04 15:01:17,312 - INFO - Testing GET /api/v1/health (triggered by: On)
+2025-08-04 15:01:19,334 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:01:19,334 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:01:19,334 - INFO -    - status: healthy
+2025-08-04 15:01:19,334 - INFO - Testing GET /api/v1/ticket (triggered by: On)
+2025-08-04 15:01:21,370 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:01:21,370 - INFO - Testing GET /api/v1/users (triggered by: On)
+2025-08-04 15:01:23,421 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:01:23,421 - INFO - Testing GET /api/v1/auth/me (triggered by: On)
+2025-08-04 15:01:25,467 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:01:25,523 - INFO - Testing button: On (ID: button_1)
+2025-08-04 15:01:26,699 - INFO - Successfully clicked button: On
+2025-08-04 15:01:29,704 - INFO - Testing GET /api/v1/health (triggered by: On)
+2025-08-04 15:01:31,749 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:01:31,749 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:01:31,749 - INFO -    - status: healthy
+2025-08-04 15:01:31,749 - INFO - Testing GET /api/v1/ticket (triggered by: On)
+2025-08-04 15:01:33,781 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:01:33,781 - INFO - Testing GET /api/v1/users (triggered by: On)
+2025-08-04 15:01:35,838 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:01:35,838 - INFO - Testing GET /api/v1/auth/me (triggered by: On)
+2025-08-04 15:01:37,860 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:01:37,899 - INFO - Testing button: Edit Profile (ID: button_2)
+2025-08-04 15:01:39,069 - INFO - Successfully clicked button: Edit Profile
+2025-08-04 15:01:42,085 - INFO - Testing GET /api/v1/health (triggered by: Edit Profile)
+2025-08-04 15:01:44,131 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:01:44,131 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:01:44,131 - INFO -    - status: healthy
+2025-08-04 15:01:44,131 - INFO - Testing GET /api/v1/ticket (triggered by: Edit Profile)
+2025-08-04 15:01:46,173 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:01:46,173 - INFO - Testing GET /api/v1/users (triggered by: Edit Profile)
+2025-08-04 15:01:48,225 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:01:48,225 - INFO - Testing GET /api/v1/auth/me (triggered by: Edit Profile)
+2025-08-04 15:01:50,279 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:01:50,295 - INFO - Testing page: /analytics
+2025-08-04 15:01:55,067 - INFO - Page loaded successfully
+2025-08-04 15:01:55,577 - INFO - Found 2 visible buttons
+2025-08-04 15:01:55,599 - INFO - Testing button: Export Report (ID: button_0)
+2025-08-04 15:01:56,769 - INFO - Successfully clicked button: Export Report
+2025-08-04 15:01:59,786 - INFO - Testing GET /api/v1/health (triggered by: Export Report)
+2025-08-04 15:02:01,837 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:02:01,837 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:02:01,853 - INFO -    - status: healthy
+2025-08-04 15:02:01,853 - INFO - Testing GET /api/v1/ticket (triggered by: Export Report)
+2025-08-04 15:02:03,902 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:02:03,902 - INFO - Testing GET /api/v1/users (triggered by: Export Report)
+2025-08-04 15:02:05,939 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:02:05,939 - INFO - Testing GET /api/v1/auth/me (triggered by: Export Report)
+2025-08-04 15:02:07,975 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:02:08,025 - INFO - Testing button: Refresh (ID: button_1)
+2025-08-04 15:02:09,212 - INFO - Successfully clicked button: Refresh
+2025-08-04 15:02:12,214 - INFO - Testing GET /api/v1/health (triggered by: Refresh)
+2025-08-04 15:02:14,347 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:02:14,379 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:02:14,379 - INFO -    - status: healthy
+2025-08-04 15:02:14,430 - INFO - Testing GET /api/v1/ticket (triggered by: Refresh)
+2025-08-04 15:02:16,490 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:02:16,492 - INFO - Testing GET /api/v1/users (triggered by: Refresh)
+2025-08-04 15:02:18,519 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:02:18,519 - INFO - Testing GET /api/v1/auth/me (triggered by: Refresh)
+2025-08-04 15:02:20,590 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:02:20,591 - INFO - Testing page: /reports
+2025-08-04 15:02:25,702 - INFO - Page loaded successfully
+2025-08-04 15:02:27,013 - INFO - Found 23 visible buttons
+2025-08-04 15:02:27,066 - INFO - Testing button: Button_0 (ID: button_0)
+2025-08-04 15:02:28,224 - INFO - Successfully clicked button: Button_0
+2025-08-04 15:02:31,239 - INFO - Testing GET /api/v1/health (triggered by: Button_0)
+2025-08-04 15:02:33,512 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:02:33,512 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:02:33,512 - INFO -    - status: healthy
+2025-08-04 15:02:33,512 - INFO - Testing GET /api/v1/ticket (triggered by: Button_0)
+2025-08-04 15:02:35,911 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:02:35,911 - INFO - Testing GET /api/v1/users (triggered by: Button_0)
+2025-08-04 15:02:38,161 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:02:38,161 - INFO - Testing GET /api/v1/auth/me (triggered by: Button_0)
+2025-08-04 15:02:40,310 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:02:40,376 - INFO - Testing button: Ticket Reports (ID: button_1)
+2025-08-04 15:02:41,572 - INFO - Successfully clicked button: Ticket Reports
+2025-08-04 15:02:44,591 - INFO - Testing GET /api/v1/health (triggered by: Ticket Reports)
+2025-08-04 15:02:46,625 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:02:46,625 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:02:46,625 - INFO -    - status: healthy
+2025-08-04 15:02:46,625 - INFO - Testing GET /api/v1/ticket (triggered by: Ticket Reports)
+2025-08-04 15:02:48,939 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:02:48,939 - INFO - Testing GET /api/v1/users (triggered by: Ticket Reports)
+2025-08-04 15:02:51,223 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:02:51,223 - INFO - Testing GET /api/v1/auth/me (triggered by: Ticket Reports)
+2025-08-04 15:02:53,539 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:02:53,589 - INFO - Testing button: Use Template (ID: button_2)
+2025-08-04 15:02:54,742 - INFO - Successfully clicked button: Use Template
+2025-08-04 15:02:57,754 - INFO - Testing GET /api/v1/health (triggered by: Use Template)
+2025-08-04 15:02:59,820 - INFO - [PASS] GET /api/v1/health - Status: 200
+2025-08-04 15:02:59,820 - INFO - [PASS] Response contains valid JSON with 4 items
+2025-08-04 15:02:59,820 - INFO -    - status: healthy
+2025-08-04 15:02:59,820 - INFO - Testing GET /api/v1/ticket (triggered by: Use Template)
+2025-08-04 15:03:02,136 - WARNING - [WARN] GET /api/v1/ticket - Expected 200, got 401
+2025-08-04 15:03:02,136 - INFO - Testing GET /api/v1/users (triggered by: Use Template)
+2025-08-04 15:03:04,419 - WARNING - [WARN] GET /api/v1/users - Expected 200, got 401
+2025-08-04 15:03:04,419 - INFO - Testing GET /api/v1/auth/me (triggered by: Use Template)
+2025-08-04 15:03:06,735 - WARNING - [WARN] GET /api/v1/auth/me - Expected 200, got 401
+2025-08-04 15:03:06,735 - INFO - Starting form submission tests...
+2025-08-04 15:03:06,735 - INFO - Testing ticket creation form...
+2025-08-04 15:03:07,993 - INFO - Page loaded successfully
+2025-08-04 15:03:07,994 - INFO - Testing empty form submission...
+2025-08-04 15:03:08,558 - INFO - Clicked submit button for empty form test
+2025-08-04 15:03:10,783 - WARNING - No validation errors found for empty form
+2025-08-04 15:03:10,783 - INFO - Testing valid ticket submission...
+2025-08-04 15:03:11,979 - INFO - Filled title field
+2025-08-04 15:03:12,978 - INFO - Filled description field
+2025-08-04 15:03:13,823 - INFO - Selected priority option
+2025-08-04 15:03:13,845 - ERROR - Error testing valid ticket submission: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb3fcb7]
+	(No symbol) [0x0x7ff66bb406bc]
+	(No symbol) [0x0x7ff66bb93af7]
+	(No symbol) [0x0x7ff66bb6864f]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:13,986 - INFO - Screenshot saved: test_screenshots/ticket_submission_error_20250804_150313.png
+2025-08-04 15:03:13,987 - INFO - Testing file upload...
+2025-08-04 15:03:14,003 - INFO - No file upload fields found
+2025-08-04 15:03:14,003 - INFO - Testing user creation form...
+2025-08-04 15:03:18,889 - INFO - Page loaded successfully
+2025-08-04 15:03:20,020 - ERROR - Error testing user creation form: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb3fcb7]
+	(No symbol) [0x0x7ff66bb406bc]
+	(No symbol) [0x0x7ff66bb93af7]
+	(No symbol) [0x0x7ff66bb6864f]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:20,023 - INFO - Testing profile update form...
+2025-08-04 15:03:24,152 - INFO - Page loaded successfully
+2025-08-04 15:03:24,241 - ERROR - Error testing profile update form: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb3fcb7]
+	(No symbol) [0x0x7ff66bb406bc]
+	(No symbol) [0x0x7ff66bb93af7]
+	(No symbol) [0x0x7ff66bb6864f]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:24,289 - INFO - Starting direct backend API tests...
+2025-08-04 15:03:26,578 - INFO - [PASS] Backend health check passed
+2025-08-04 15:03:26,593 - INFO -    - Service: peppermint-api
+2025-08-04 15:03:26,593 - INFO -    - Status: healthy
+2025-08-04 15:03:28,794 - WARNING - [WARN] Get Tickets - Status: 401
+2025-08-04 15:03:32,826 - WARNING - [WARN] Get Tickets - Status: 401
+2025-08-04 15:03:34,875 - WARNING - [WARN] Get Users - Status: 401
+2025-08-04 15:03:39,190 - WARNING - [WARN] Get Users - Status: 401
+2025-08-04 15:03:41,590 - WARNING - [WARN] Get Current User - Status: 401
+2025-08-04 15:03:45,788 - WARNING - [WARN] Get Current User - Status: 401
+2025-08-04 15:03:45,788 - INFO - 
+==================================================
+2025-08-04 15:03:45,788 - INFO - TEST REPORT SUMMARY
+2025-08-04 15:03:45,788 - INFO - ==================================================
+2025-08-04 15:03:45,788 - INFO - Frontend Tests: 7/7 successful
+2025-08-04 15:03:45,788 - INFO - Backend Tests: 14/59 successful
+2025-08-04 15:03:45,788 - INFO - Form Tests: 0/0 successful
+2025-08-04 15:03:45,788 - WARNING - Errors: 5 errors encountered
+2025-08-04 15:03:45,788 - WARNING -   - Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:45,802 - WARNING -   - Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:45,814 - WARNING -   - Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:45,863 - WARNING -   - Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:45,877 - WARNING -   - Unknown Button: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff66bd1e415+77285]
+	GetHandleVerifier [0x0x7ff66bd1e470+77376]
+	(No symbol) [0x0x7ff66bae9a6a]
+	(No symbol) [0x0x7ff66baf1419]
+	(No symbol) [0x0x7ff66baf44cc]
+	(No symbol) [0x0x7ff66baf459f]
+	(No symbol) [0x0x7ff66bb39f16]
+	(No symbol) [0x0x7ff66bb6860a]
+	(No symbol) [0x0x7ff66bb32d06]
+	(No symbol) [0x0x7ff66bb68820]
+	(No symbol) [0x0x7ff66bb9087f]
+	(No symbol) [0x0x7ff66bb683e3]
+	(No symbol) [0x0x7ff66bb31521]
+	(No symbol) [0x0x7ff66bb322b3]
+	GetHandleVerifier [0x0x7ff66c001efd+3107021]
+	GetHandleVerifier [0x0x7ff66bffc29d+3083373]
+	GetHandleVerifier [0x0x7ff66c01bedd+3213485]
+	GetHandleVerifier [0x0x7ff66bd3884e+184862]
+	GetHandleVerifier [0x0x7ff66bd4055f+216879]
+	GetHandleVerifier [0x0x7ff66bd27084+113236]
+	GetHandleVerifier [0x0x7ff66bd27239+113673]
+	GetHandleVerifier [0x0x7ff66bd0e298+11368]
+	BaseThreadInitThunk [0x0x7ffafdea7374+20]
+	RtlUserThreadStart [0x0x7ffafed9cc91+33]
+
+2025-08-04 15:03:45,880 - INFO - Overall Success Rate: 31.8%
+2025-08-04 15:03:45,880 - ERROR - [FAIL] Test suite FAILED
+2025-08-04 15:03:45,880 - INFO - ==================================================
+2025-08-04 15:03:48,354 - INFO - WebDriver closed

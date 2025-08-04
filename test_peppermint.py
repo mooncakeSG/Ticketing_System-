@@ -7,23 +7,39 @@ Tests both frontend UI interactions and backend API endpoints
 import time
 import json
 import logging
-import requests
 import os
+import sys
 from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import (
-    TimeoutException, 
-    NoSuchElementException, 
-    ElementClickInterceptedException,
-    WebDriverException,
-    StaleElementReferenceException
-)
+
+# Check and import required dependencies with helpful error messages
+try:
+    import requests
+except ImportError:
+    print("❌ Missing required dependency: requests")
+    print("💡 Install with: pip install requests")
+    print("   Or install all test dependencies: pip install -r test_requirements.txt")
+    sys.exit(1)
+
+try:
+    from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.common.keys import Keys
+    from selenium.webdriver.common.action_chains import ActionChains
+    from selenium.common.exceptions import (
+        TimeoutException, 
+        NoSuchElementException, 
+        ElementClickInterceptedException,
+        WebDriverException,
+        StaleElementReferenceException
+    )
+except ImportError:
+    print("❌ Missing required dependency: selenium")
+    print("💡 Install with: pip install selenium")
+    print("   Or install all test dependencies: pip install -r test_requirements.txt")
+    sys.exit(1)
 
 # Configure logging with ASCII-safe characters
 logging.basicConfig(
@@ -35,6 +51,92 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+def check_services_availability():
+    """Check if backend and frontend services are available"""
+    import socket
+    import requests
+    
+    print("🔍 Checking service availability...")
+    
+    # Check backend with longer timeout and retry logic
+    backend_available = False
+    for attempt in range(3):
+        try:
+            response = requests.get("http://localhost:5003/api/v1/health", timeout=10)
+            if response.status_code == 200:
+                backend_available = True
+                print("✅ Backend is running on http://localhost:5003")
+                break
+            else:
+                print(f"⚠️  Backend responded with status: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            if attempt < 2:
+                print(f"⏳ Backend connection attempt {attempt + 1}/3 failed, retrying...")
+                time.sleep(2)
+            else:
+                print("❌ Backend is not running on http://localhost:5003")
+                print(f"   Error: {e}")
+    
+    # Check frontend with longer timeout and retry logic
+    frontend_available = False
+    for attempt in range(3):
+        try:
+            response = requests.get("http://localhost:3000", timeout=10)
+            if response.status_code == 200:
+                frontend_available = True
+                print("✅ Frontend is running on http://localhost:3000")
+                break
+            else:
+                print(f"⚠️  Frontend responded with status: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            if attempt < 2:
+                print(f"⏳ Frontend connection attempt {attempt + 1}/3 failed, retrying...")
+                time.sleep(2)
+            else:
+                print("❌ Frontend is not running on http://localhost:3000")
+                print(f"   Error: {e}")
+    
+    if not backend_available or not frontend_available:
+        print("\n💡 To start the services, run:")
+        print("   python start-dev.py")
+        print("\n   Or start them manually:")
+        print("   - Backend: cd backend && python app.py")
+        print("   - Frontend: cd apps/client && npm run dev")
+        print("\n⚠️  If services are running but timing out:")
+        print("   - Check if ports 5003 and 3000 are free")
+        print("   - Restart the services")
+        print("   - Check firewall settings")
+        return False
+    
+    return True
+
+def check_dependencies():
+    """Check if all required dependencies are available"""
+    missing_deps = []
+    
+    try:
+        import requests
+    except ImportError:
+        missing_deps.append("requests")
+    
+    try:
+        import selenium
+    except ImportError:
+        missing_deps.append("selenium")
+    
+    if missing_deps:
+        print("❌ Missing required dependencies:")
+        for dep in missing_deps:
+            print(f"   - {dep}")
+        print("\n💡 Install missing dependencies with:")
+        print("   pip install -r test_requirements.txt")
+        print("\n   Or install individually:")
+        for dep in missing_deps:
+            print(f"   pip install {dep}")
+        return False
+    
+    return True
 
 class PeppermintTester:
     def __init__(self):
@@ -97,6 +199,9 @@ class PeppermintTester:
             return True
         except Exception as e:
             logger.error(f"Failed to setup WebDriver: {e}")
+            print(f"❌ WebDriver setup failed: {e}")
+            print("💡 Make sure Chrome browser is installed and ChromeDriver is available")
+            print("   You can install ChromeDriver with: pip install webdriver-manager")
             return False
     
     def wait_for_page_load(self, timeout=10):
@@ -954,20 +1059,28 @@ class PeppermintTester:
         """Test backend API endpoints directly"""
         logger.info("Starting direct backend API tests...")
         
-        # Test health endpoint
-        try:
-            response = self.session.get(f"{self.backend_url}/api/v1/health")
-            if response.status_code == 200:
-                logger.info("[PASS] Backend health check passed")
-                health_data = response.json()
-                logger.info(f"   - Service: {health_data.get('service', 'N/A')}")
-                logger.info(f"   - Status: {health_data.get('status', 'N/A')}")
-            else:
-                logger.warning(f"[WARN] Backend health check failed: {response.status_code}")
-        except Exception as e:
-            logger.error(f"[FAIL] Backend health check error: {e}")
+        # Test health endpoint with retry logic
+        health_success = False
+        for attempt in range(3):
+            try:
+                response = self.session.get(f"{self.backend_url}/api/v1/health", timeout=15)
+                if response.status_code == 200:
+                    logger.info("[PASS] Backend health check passed")
+                    health_data = response.json()
+                    logger.info(f"   - Service: {health_data.get('service', 'N/A')}")
+                    logger.info(f"   - Status: {health_data.get('status', 'N/A')}")
+                    health_success = True
+                    break
+                else:
+                    logger.warning(f"[WARN] Backend health check failed: {response.status_code}")
+            except Exception as e:
+                if attempt < 2:
+                    logger.warning(f"[RETRY] Backend health check attempt {attempt + 1}/3 failed: {e}")
+                    time.sleep(3)
+                else:
+                    logger.error(f"[FAIL] Backend health check error after 3 attempts: {e}")
         
-        # Test other endpoints
+        # Test other endpoints with improved timeout handling
         endpoints = [
             {"method": "GET", "endpoint": "/api/v1/ticket", "name": "Get Tickets"},
             {"method": "GET", "endpoint": "/api/v1/users", "name": "Get Users"},
@@ -975,25 +1088,42 @@ class PeppermintTester:
         ]
         
         for endpoint in endpoints:
-            try:
-                url = f"{self.backend_url}{endpoint['endpoint']}"
-                response = self.session.get(url, timeout=5)
-                
-                if response.status_code == 200:
-                    logger.info(f"[PASS] {endpoint['name']} - Status: {response.status_code}")
-                    try:
-                        data = response.json()
-                        if isinstance(data, list):
-                            logger.info(f"   - Found {len(data)} items")
-                        elif isinstance(data, dict):
-                            logger.info(f"   - Response keys: {list(data.keys())}")
-                    except:
-                        logger.info(f"   - Response: {response.text[:100]}...")
-                else:
-                    logger.warning(f"[WARN] {endpoint['name']} - Status: {response.status_code}")
+            endpoint_success = False
+            for attempt in range(2):  # Retry once for each endpoint
+                try:
+                    url = f"{self.backend_url}{endpoint['endpoint']}"
+                    response = self.session.get(url, timeout=15)
                     
-            except Exception as e:
-                logger.error(f"[FAIL] {endpoint['name']} error: {e}")
+                    if response.status_code == 200:
+                        logger.info(f"[PASS] {endpoint['name']} - Status: {response.status_code}")
+                        try:
+                            data = response.json()
+                            if isinstance(data, list):
+                                logger.info(f"   - Found {len(data)} items")
+                            elif isinstance(data, dict):
+                                logger.info(f"   - Response keys: {list(data.keys())}")
+                        except:
+                            logger.info(f"   - Response: {response.text[:100]}...")
+                        endpoint_success = True
+                        break
+                    else:
+                        logger.warning(f"[WARN] {endpoint['name']} - Status: {response.status_code}")
+                        if attempt == 0:
+                            time.sleep(2)
+                        
+                except Exception as e:
+                    if attempt == 0:
+                        logger.warning(f"[RETRY] {endpoint['name']} attempt 1/2 failed: {e}")
+                        time.sleep(3)
+                    else:
+                        logger.error(f"[FAIL] {endpoint['name']} error after retry: {e}")
+            
+            # Store backend test results
+            self.test_results["backend_tests"].append({
+                "endpoint": endpoint['name'],
+                "success": endpoint_success,
+                "attempts": 2
+            })
     
     def generate_report(self):
         """Generate a comprehensive test report"""
@@ -1076,6 +1206,23 @@ class PeppermintTester:
 
 def main():
     """Main function to run the test suite"""
+    print("🧪 Peppermint Ticketing System - Test Suite")
+    print("=" * 50)
+    
+    # Check dependencies first
+    if not check_dependencies():
+        print("\n❌ Please install missing dependencies and try again.")
+        sys.exit(1)
+    
+    print("✅ All dependencies are available!")
+    
+    # Check service availability
+    if not check_services_availability():
+        print("\n❌ Services are not available. Please start them first.")
+        sys.exit(1)
+    
+    print("🚀 Starting test suite...\n")
+    
     tester = PeppermintTester()
     success = tester.run_tests()
     
