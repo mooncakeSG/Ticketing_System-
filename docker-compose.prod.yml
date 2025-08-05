@@ -1,0 +1,72 @@
+version: "3.1"
+
+services:
+  peppermint_postgres:
+    container_name: peppermint_postgres_prod
+    image: postgres:latest
+    restart: always
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: peppermint_prod
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-peppermint_prod_secure_2024}
+      POSTGRES_DB: peppermint_prod
+    networks:
+      - peppermint_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U peppermint_prod"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  peppermint:
+    container_name: peppermint_prod
+    image: pepperlabs/peppermint:latest
+    ports:
+      - "${CLIENT_PORT:-1000}:3000"  # Client
+      - "${API_PORT:-1001}:5003"     # API
+    restart: always
+    depends_on:
+      peppermint_postgres:
+        condition: service_healthy
+    environment:
+      DB_USERNAME: "peppermint_prod"
+      DB_PASSWORD: "${DB_PASSWORD:-peppermint_prod_secure_2024}"
+      DB_HOST: "peppermint_postgres"
+      SECRET: "${SECRET:-peppermint_production_secret_2024}"
+      NODE_ENV: "production"
+      PORT: "5003"
+      CORS_ORIGINS: "${CORS_ORIGINS:-http://localhost:1000}"
+    networks:
+      - peppermint_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Redis for caching (uncomment if needed)
+  # peppermint_redis:
+  #   container_name: peppermint_redis_prod
+  #   image: redis:alpine
+  #   restart: always
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - peppermint_network
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+
+volumes:
+  pgdata_prod:
+    driver: local
+  # redis_data:
+  #   driver: local
+
+networks:
+  peppermint_network:
+    driver: bridge 
