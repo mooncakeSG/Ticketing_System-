@@ -2,12 +2,12 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ticketApi, CreateTicketData } from '@/lib/api'
-import { ArrowLeft, Send, AlertCircle } from 'lucide-react'
+import { ArrowLeft, Send, AlertCircle, Ticket, AlertTriangle, Info } from 'lucide-react'
 import Link from 'next/link'
 
 export default function CreateTicket() {
@@ -66,47 +66,118 @@ export default function CreateTicket() {
     }
   }
 
+  const priorityOptions = [
+    {
+      value: 'low',
+      label: 'Low',
+      icon: Info,
+      gradient: 'from-emerald-500/10 to-emerald-600/10',
+      border: 'border-emerald-500/20',
+      iconColor: 'text-emerald-400',
+      description: 'Minor issues, non-urgent'
+    },
+    {
+      value: 'medium',
+      label: 'Medium',
+      icon: AlertTriangle,
+      gradient: 'from-amber-500/10 to-amber-600/10',
+      border: 'border-amber-500/20',
+      iconColor: 'text-amber-400',
+      description: 'Standard priority issues'
+    },
+    {
+      value: 'high',
+      label: 'High',
+      icon: AlertCircle,
+      gradient: 'from-red-500/10 to-red-600/10',
+      border: 'border-red-500/20',
+      iconColor: 'text-red-400',
+      description: 'Urgent issues requiring immediate attention'
+    }
+  ]
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    }
+  }
+
   return (
     <MainLayout>
-      <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center space-x-4">
+      <div className="max-w-2xl mx-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
+        {/* Enhanced Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center space-x-4"
+        >
           <Link href="/">
-            <Button variant="ghost" size="icon" data-testid="back-button" aria-label="Go back">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              data-testid="back-button" 
+              aria-label="Go back"
+              className="hover:bg-emerald-500/20 hover:text-emerald-400"
+            >
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold text-white">Create New Ticket</h1>
-            <p className="text-gray-400 mt-1">Submit a new support ticket</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent">
+              Create New Ticket
+            </h1>
+            <p className="text-gray-400 mt-1 text-sm sm:text-base">
+              Submit a new MintDesk support ticket
+            </p>
           </div>
-        </div>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          <Card className="bg-gray-900/50 border-gray-800">
+          <Card className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border border-gray-700/50">
             <CardHeader>
-              <CardTitle className="text-white">Ticket Information</CardTitle>
+              <CardTitle className="text-white bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent flex items-center">
+                <Ticket className="h-5 w-5 mr-2" />
+                Ticket Information
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6" data-testid="create-ticket-form">
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center space-x-2 p-3 bg-red-500/10 border border-red-500/20 rounded-md"
-                    role="alert"
-                    aria-live="polite"
-                  >
-                    <AlertCircle className="h-4 w-4 text-red-400" />
-                    <span className="text-red-400 text-sm">{error}</span>
-                  </motion.div>
-                )}
+                <AnimatePresence>
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      className="flex items-center space-x-2 p-3 bg-red-500/10 border border-red-500/20 rounded-md"
+                      role="alert"
+                      aria-live="polite"
+                    >
+                      <AlertCircle className="h-4 w-4 text-red-400" />
+                      <span className="text-red-400 text-sm">{error}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                <div className="space-y-2">
+                <motion.div variants={itemVariants} className="space-y-2">
                   <label htmlFor="title" className="text-sm font-medium text-white">
                     Title *
                   </label>
@@ -115,8 +186,8 @@ export default function CreateTicket() {
                     type="text"
                     value={formData.title}
                     onChange={(e) => handleChange('title', e.target.value)}
-                    className={`w-full px-3 py-2 bg-gray-800 border rounded-md text-white placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 ${
-                      fieldErrors.title ? 'border-red-500' : 'border-gray-700'
+                    className={`w-full px-3 py-2 bg-gray-800/50 border rounded-md text-white placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all duration-200 ${
+                      fieldErrors.title ? 'border-red-500' : 'border-gray-700/50'
                     }`}
                     placeholder="Brief description of the issue"
                     required
@@ -128,27 +199,46 @@ export default function CreateTicket() {
                       {fieldErrors.title}
                     </div>
                   )}
-                </div>
+                </motion.div>
 
-                <div className="space-y-2">
+                <motion.div variants={itemVariants} className="space-y-2">
                   <label htmlFor="priority" className="text-sm font-medium text-white">
                     Priority
                   </label>
-                  <select
-                    id="priority"
-                    value={formData.priority}
-                    onChange={(e) => handleChange('priority', e.target.value as any)}
-                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    data-testid="ticket-priority-select"
-                    aria-label="Select ticket priority"
-                  >
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                  </select>
-                </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {priorityOptions.map((option) => (
+                      <motion.div
+                        key={option.value}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <label className={`block cursor-pointer`}>
+                          <input
+                            type="radio"
+                            name="priority"
+                            value={option.value}
+                            checked={formData.priority === option.value}
+                            onChange={(e) => handleChange('priority', e.target.value as any)}
+                            className="sr-only"
+                          />
+                          <div className={`p-3 rounded-lg border transition-all duration-200 ${
+                            formData.priority === option.value 
+                              ? `${option.gradient} ${option.border} border-opacity-50` 
+                              : 'bg-gray-800/50 border-gray-700/50 hover:border-gray-600/50'
+                          }`}>
+                            <div className="flex items-center space-x-2">
+                              <option.icon className={`h-4 w-4 ${option.iconColor}`} />
+                              <span className="text-white font-medium">{option.label}</span>
+                            </div>
+                            <p className="text-gray-400 text-xs mt-1">{option.description}</p>
+                          </div>
+                        </label>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
 
-                <div className="space-y-2">
+                <motion.div variants={itemVariants} className="space-y-2">
                   <label htmlFor="detail" className="text-sm font-medium text-white">
                     Description *
                   </label>
@@ -157,8 +247,8 @@ export default function CreateTicket() {
                     value={formData.detail}
                     onChange={(e) => handleChange('detail', e.target.value)}
                     rows={6}
-                    className={`w-full px-3 py-2 bg-gray-800 border rounded-md text-white placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 resize-none ${
-                      fieldErrors.detail ? 'border-red-500' : 'border-gray-700'
+                    className={`w-full px-3 py-2 bg-gray-800/50 border rounded-md text-white placeholder-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all duration-200 resize-none ${
+                      fieldErrors.detail ? 'border-red-500' : 'border-gray-700/50'
                     }`}
                     placeholder="Provide detailed information about the issue..."
                     required
@@ -170,18 +260,26 @@ export default function CreateTicket() {
                       {fieldErrors.detail}
                     </div>
                   )}
-                </div>
+                </motion.div>
 
-                <div className="flex items-center justify-between pt-4">
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex flex-col sm:flex-row items-center justify-between pt-4 space-y-3 sm:space-y-0"
+                >
                   <Link href="/">
-                    <Button variant="outline" type="button" data-testid="cancel-button">
+                    <Button 
+                      variant="outline" 
+                      type="button" 
+                      data-testid="cancel-button"
+                      className="hover:border-emerald-500/50 hover:text-emerald-400"
+                    >
                       Cancel
                     </Button>
                   </Link>
                   <Button 
                     type="submit" 
                     disabled={loading}
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700"
                     data-testid="submit-ticket-button"
                     aria-label={loading ? "Creating ticket..." : "Create ticket"}
                   >
@@ -192,7 +290,7 @@ export default function CreateTicket() {
                     )}
                     <span>{loading ? 'Creating...' : 'Create Ticket'}</span>
                   </Button>
-                </div>
+                </motion.div>
               </form>
             </CardContent>
           </Card>

@@ -203,7 +203,7 @@ export default function MessagesList() {
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0"
         >
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent">
               Messages
             </h1>
             <p className="text-gray-400 mt-1 text-sm sm:text-base">
@@ -221,7 +221,7 @@ export default function MessagesList() {
               Filters
             </Button>
             <Link href="/messages/compose">
-              <Button className="flex items-center space-x-2 text-sm w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+              <Button className="flex items-center space-x-2 text-sm w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700">
                 <Plus className="h-4 w-4" />
                 <span>New Message</span>
               </Button>
@@ -394,7 +394,7 @@ export default function MessagesList() {
               )}
             </div>
             <Link href="/messages/compose">
-              <Button className="text-sm bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+                              <Button className="text-sm bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700">
                 <Plus className="h-4 w-4 mr-2" />
                 New Message
               </Button>
@@ -416,13 +416,13 @@ export default function MessagesList() {
                   className="group"
                 >
                   <Link href={`/messages/${message.id}`}>
-                    <Card className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border-gray-700/50 hover:border-blue-500/50 hover:from-gray-900/80 hover:to-gray-800/80 transition-all duration-300 cursor-pointer group-hover:shadow-lg group-hover:shadow-blue-500/10">
+                    <Card className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border-gray-700/50 hover:border-emerald-500/50 hover:from-gray-900/80 hover:to-gray-800/80 transition-all duration-300 cursor-pointer group-hover:shadow-lg group-hover:shadow-emerald-500/10">
                       <CardContent className="p-3 sm:p-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center space-x-2 sm:space-x-3 mb-2">
                               <div className="relative">
-                                <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold text-xs sm:text-sm flex-shrink-0">
+                                <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-semibold text-xs sm:text-sm flex-shrink-0">
                                   {getInitials(message.participants[0])}
                                 </div>
                                 {message.unread_count > 0 && (
@@ -433,7 +433,7 @@ export default function MessagesList() {
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center space-x-2">
-                                  <h3 className="text-white font-medium text-sm sm:text-base truncate group-hover:text-blue-400 transition-colors">
+                                  <h3 className="text-white font-medium text-sm sm:text-base truncate group-hover:text-emerald-400 transition-colors">
                                     {message.subject}
                                   </h3>
                                   {message.isStarred && (
@@ -464,10 +464,10 @@ export default function MessagesList() {
                             </div>
                           </div>
                           <div className="flex items-center space-x-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              className="h-6 w-6 sm:h-8 sm:w-8 hover:bg-blue-500/20 hover:text-blue-400"
+                                                          <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="h-6 w-6 sm:h-8 sm:w-8 hover:bg-emerald-500/20 hover:text-emerald-400"
                               onClick={(e) => {
                                 e.preventDefault()
                                 toggleStar(message.id)

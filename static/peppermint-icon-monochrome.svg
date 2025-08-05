@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.1"/>
+  
+  <!-- Peppermint leaf outline -->
+  <path d="M16 4 C20 6, 22 10, 22 16 C22 22, 20 26, 16 28 C12 26, 10 22, 10 16 C10 10, 12 6, 16 4 Z" 
+        fill="currentColor" opacity="0.8"/>
+  
+  <!-- Leaf vein -->
+  <path d="M16 4 L16 28" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Center dot -->
+  <circle cx="16" cy="16" r="2" fill="currentColor" opacity="0.9"/>
+</svg> 

@@ -182,7 +182,12 @@ export default function NewLayout({ children }: any) {
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
                     <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
-                      <Link href="https://peppermint.sh">
+                      <Link href="https://peppermint.sh" className="flex items-center space-x-2">
+                        <img 
+                          src="/Main-Icon.svg" 
+                          alt="Peppermint" 
+                          className="h-8 w-8"
+                        />
                         <span className="text-3xl ml-2 text-green-500  hover:text-green-600 font-bold ">
                           Peppermint
                         </span>
@@ -309,7 +314,12 @@ export default function NewLayout({ children }: any) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background pb-4">
             <div className="flex align-middle flex-row h-14 items-center border-b-[1px] px-6">
-              <Link href="https://peppermint.sh" target="_blank">
+              <Link href="https://peppermint.sh" target="_blank" className="flex items-center space-x-2">
+                <img 
+                  src="/Main-Icon.svg" 
+                  alt="Peppermint" 
+                  className="h-8 w-8"
+                />
                 <span className="text-3xl ml-2 text-green-500 hover:text-green-600 font-bold">
                   Peppermint
                 </span>

@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mintGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B8E63A"/>
+      <stop offset="100%" stop-color="#2ECC71"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#mintGradient)" stroke="#28A745" stroke-width="16"/>
+
+  <!-- Mint Plant (Stylized Symmetrical Leaves) -->
+  <g fill="#FFFFFF" transform="translate(256, 256)">
+    <!-- Bottom Leaves -->
+    <path d="M-100,40 C-60,0 -20,0 0,40 C20,0 60,0 100,40 C60,60 20,60 0,40 C-20,60 -60,60 -100,40Z"/>
+    
+    <!-- Middle Leaves -->
+    <path d="M-70,-20 C-50,-60 -10,-60 0,-20 C10,-60 50,-60 70,-20 C50,-5 10,-5 0,-20 C-10,-5 -50,-5 -70,-20Z"/>
+
+    <!-- Center Leaf -->
+    <path d="M-30,-80 C-10,-110 10,-110 30,-80 C10,-70 -10,-70 -30,-80Z"/>
+
+    <!-- Top Leaf -->
+    <path d="M-10,-120 C0,-130 10,-130 10,-120 C10,-110 -10,-110 -10,-120Z"/>
+
+    <!-- Stem -->
+    <rect x="-6" y="40" width="12" height="60" fill="#FFFFFF"/>
+
+    <!-- Lower Leaflets -->
+    <path d="M-40,100 C-30,90 -10,90 0,100 C-10,110 -30,110 -40,100Z"/>
+    <path d="M40,100 C30,90 10,90 0,100 C10,110 30,110 40,100Z"/>
+  </g>
+</svg> 
