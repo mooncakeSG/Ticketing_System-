@@ -115,25 +115,25 @@ export default function Reports() {
 
   return (
     <MainLayout>
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold text-white">Reports</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Reports</h1>
             <p className="text-gray-400 mt-1">Generate and download detailed analytics reports</p>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="p-2 bg-gray-800 border border-gray-700 rounded text-white"
+              className="p-2 bg-gray-800 border border-gray-700 rounded text-white text-sm"
             >
               <option value="7d">Last 7 days</option>
               <option value="30d">Last 30 days</option>
               <option value="90d">Last 90 days</option>
               <option value="1y">Last year</option>
             </select>
-            <Button>
+            <Button className="text-sm">
               <FileText className="h-4 w-4 mr-2" />
               New Report
             </Button>
@@ -149,24 +149,24 @@ export default function Reports() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
               <Button
                 variant={selectedType === 'all' ? 'default' : 'outline'}
                 onClick={() => setSelectedType('all')}
-                className="justify-start"
+                className="justify-start text-sm h-auto py-3 px-3"
               >
-                <BarChart3 className="h-4 w-4 mr-2" />
-                All Reports
+                <BarChart3 className="h-4 w-4 mr-2 flex-shrink-0" />
+                <span className="truncate">All Reports</span>
               </Button>
               {reportTypes.map((type) => (
                 <Button
                   key={type.id}
                   variant={selectedType === type.id ? 'default' : 'outline'}
                   onClick={() => setSelectedType(type.id)}
-                  className="justify-start"
+                  className="justify-start text-sm h-auto py-3 px-3"
                 >
-                  <type.icon className={`h-4 w-4 mr-2 ${type.color}`} />
-                  {type.name}
+                  <type.icon className={`h-4 w-4 mr-2 flex-shrink-0 ${type.color}`} />
+                  <span className="truncate">{type.name}</span>
                 </Button>
               ))}
             </div>
@@ -174,41 +174,41 @@ export default function Reports() {
         </Card>
 
         {/* Reports List */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {filteredReports.map((report) => (
             <Card key={report.id}>
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-white">{report.name}</CardTitle>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                  <CardTitle className="text-white text-lg sm:text-xl">{report.name}</CardTitle>
                   <Badge 
                     variant={report.status === 'ready' ? 'default' : report.status === 'error' ? 'destructive' : 'secondary'}
-                    className="text-xs"
+                    className="text-xs w-fit"
                   >
                     {getStatusText(report.status)}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-400 text-sm">{report.description}</p>
+                <p className="text-gray-400 text-sm leading-relaxed">{report.description}</p>
                 
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm space-y-1 sm:space-y-0">
                   <span className="text-gray-400">Last Generated:</span>
-                  <span className="text-white">{formatDate(report.lastGenerated)}</span>
+                  <span className="text-white text-xs sm:text-sm">{formatDate(report.lastGenerated)}</span>
                 </div>
                 
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm space-y-1 sm:space-y-0">
                   <span className="text-gray-400">Format:</span>
-                  <Badge variant="outline" className="text-xs uppercase">
+                  <Badge variant="outline" className="text-xs uppercase w-fit">
                     {report.format}
                   </Badge>
                 </div>
                 
-                <div className="flex items-center space-x-2 pt-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 pt-2">
                   {report.status === 'ready' ? (
                     <Button
                       size="sm"
                       onClick={() => handleDownloadReport(report.id)}
-                      className="flex-1"
+                      className="flex-1 text-sm"
                     >
                       <Download className="h-4 w-4 mr-2" />
                       Download
@@ -218,7 +218,7 @@ export default function Reports() {
                       size="sm"
                       onClick={() => handleGenerateReport(report.id)}
                       disabled={generating === report.id}
-                      className="flex-1"
+                      className="flex-1 text-sm"
                     >
                       {generating === report.id ? (
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -229,7 +229,7 @@ export default function Reports() {
                     </Button>
                   )}
                   
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="text-sm">
                     <Calendar className="h-4 w-4" />
                   </Button>
                 </div>
@@ -244,25 +244,25 @@ export default function Reports() {
             <CardTitle className="text-white">Quick Reports</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Button variant="outline" className="h-20 flex-col space-y-2">
-                <FileText className="h-6 w-6" />
-                <span className="text-sm">Daily Summary</span>
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <Button variant="outline" className="h-16 sm:h-20 flex-col space-y-1 sm:space-y-2 text-xs sm:text-sm">
+                <FileText className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="truncate">Daily Summary</span>
               </Button>
               
-              <Button variant="outline" className="h-20 flex-col space-y-2">
-                <Clock className="h-6 w-6" />
-                <span className="text-sm">Time Report</span>
+              <Button variant="outline" className="h-16 sm:h-20 flex-col space-y-1 sm:space-y-2 text-xs sm:text-sm">
+                <Clock className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="truncate">Time Report</span>
               </Button>
               
-              <Button variant="outline" className="h-20 flex-col space-y-2">
-                <Users className="h-6 w-6" />
-                <span className="text-sm">User Activity</span>
+              <Button variant="outline" className="h-16 sm:h-20 flex-col space-y-1 sm:space-y-2 text-xs sm:text-sm">
+                <Users className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="truncate">User Activity</span>
               </Button>
               
-              <Button variant="outline" className="h-20 flex-col space-y-2">
-                <TrendingUp className="h-6 w-6" />
-                <span className="text-sm">Performance</span>
+              <Button variant="outline" className="h-16 sm:h-20 flex-col space-y-1 sm:space-y-2 text-xs sm:text-sm">
+                <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="truncate">Performance</span>
               </Button>
             </div>
           </CardContent>
@@ -275,23 +275,23 @@ export default function Reports() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 border border-gray-700 rounded-lg">
-                  <h3 className="text-white font-medium mb-2">Executive Summary</h3>
-                  <p className="text-gray-400 text-sm mb-3">High-level overview for management</p>
-                  <Button size="sm" variant="outline">Use Template</Button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <div className="p-3 sm:p-4 border border-gray-700 rounded-lg">
+                  <h3 className="text-white font-medium mb-2 text-sm sm:text-base">Executive Summary</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">High-level overview for management</p>
+                  <Button size="sm" variant="outline" className="text-xs">Use Template</Button>
                 </div>
                 
-                <div className="p-4 border border-gray-700 rounded-lg">
-                  <h3 className="text-white font-medium mb-2">Team Performance</h3>
-                  <p className="text-gray-400 text-sm mb-3">Detailed team metrics and KPIs</p>
-                  <Button size="sm" variant="outline">Use Template</Button>
+                <div className="p-3 sm:p-4 border border-gray-700 rounded-lg">
+                  <h3 className="text-white font-medium mb-2 text-sm sm:text-base">Team Performance</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">Detailed team metrics and KPIs</p>
+                  <Button size="sm" variant="outline" className="text-xs">Use Template</Button>
                 </div>
                 
-                <div className="p-4 border border-gray-700 rounded-lg">
-                  <h3 className="text-white font-medium mb-2">Customer Support</h3>
-                  <p className="text-gray-400 text-sm mb-3">Support ticket analysis and trends</p>
-                  <Button size="sm" variant="outline">Use Template</Button>
+                <div className="p-3 sm:p-4 border border-gray-700 rounded-lg">
+                  <h3 className="text-white font-medium mb-2 text-sm sm:text-base">Customer Support</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">Support ticket analysis and trends</p>
+                  <Button size="sm" variant="outline" className="text-xs">Use Template</Button>
                 </div>
               </div>
             </div>

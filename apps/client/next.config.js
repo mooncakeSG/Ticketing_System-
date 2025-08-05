@@ -3,12 +3,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-})
+// Temporarily disable PWA to fix dependency issues
+// const withPWA = require('next-pwa')({
+//   dest: 'public',
+//   disable: process.env.NODE_ENV === 'development',
+//   register: true,
+//   skipWaiting: true,
+// })
 
 const nextConfig = {
   // Performance optimizations
@@ -46,11 +47,13 @@ const nextConfig = {
       )
     }
 
-    // Tree shaking optimizations
-    config.optimization = {
-      ...config.optimization,
-      usedExports: true,
-      sideEffects: false,
+    // Tree shaking optimizations - only in production
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: false,
+      }
     }
 
     // Module resolution optimizations
@@ -148,4 +151,4 @@ const nextConfig = {
 }
 
 // Apply plugins
-module.exports = withPWA(withBundleAnalyzer(nextConfig))
+module.exports = withBundleAnalyzer(nextConfig)
